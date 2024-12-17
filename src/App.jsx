@@ -1,9 +1,16 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { MainLayout } from './layouts/MainLayout.jsx';
+
+const router = createBrowserRouter([
+    {
+        path: '',
+        element: <MainLayout />,
+        children: [],
+    },
+]);
+
 function App() {
-    return (
-        <>
-            <h1 className="text-3xl">siebensachen</h1>
-        </>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
