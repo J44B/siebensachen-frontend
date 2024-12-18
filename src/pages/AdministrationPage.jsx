@@ -1,10 +1,10 @@
 function AdministrationPage() {
     return (
         <>
-            <h1>AdministrationPage</h1>
+            <h1 className="font-bold">AdministrationPage</h1>
             <ul>
-                <p>Items</p>
-                <p>Categories</p>
+                <p className="italic">Items</p>
+                <p className="italic">Categories</p>
             </ul>
         </>
     );

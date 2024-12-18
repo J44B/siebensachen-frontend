@@ -1,5 +1,5 @@
 function ItemsPage() {
-    return <h1>ItemsPage</h1>;
+    return <h1 className="font-bold">ItemsPage</h1>;
 }
 
 export default ItemsPage;

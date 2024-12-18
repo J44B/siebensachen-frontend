@@ -1,5 +1,5 @@
 function CreateEventPage() {
-    return <h1>CreateEventPage</h1>;
+    return <h1 className="font-bold">CreateEventPage</h1>;
 }
 
 export default CreateEventPage;

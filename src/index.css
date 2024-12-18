@@ -2,22 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Figtree';
-    src: url('../static/fonts/Figtree-Regular.woff') format('woff');
-}
+@layer base {
+    @font-face {
+        font-family: 'Figtree';
+        font-style: regular;
+        font-weight: 400;
+        font-display: swap;
+        src: url('../static/fonts/Figtree-Regular.woff') format('woff');
+    }
 
-@font-face {
-    font-family: 'Figtree';
-    src: url('../static/fonts/Figtree-Bold.woff') format('woff');
-}
+    @font-face {
+        font-family: 'Figtree';
+        src: url('../static/fonts/Figtree-Bold.woff') format('woff');
+    }
 
-@font-face {
-    font-family: 'Figtree';
-    src: url('../static/fonts/Figtree-Light.woff') format('woff');
-}
+    @font-face {
+        font-family: 'Figtree';
+        src: url('../static/fonts/Figtree-Light.woff') format('woff');
+    }
 
-@font-face {
-    font-family: 'Figtree';
-    src: url('../static/fonts/Figtree-Italic.woff') format('woff');
+    @font-face {
+        font-family: 'Figtree';
+        src: url('../static/fonts/Figtree-Italic.woff') format('woff');
+    }
 }

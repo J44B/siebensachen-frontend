@@ -1,5 +1,5 @@
 function CategoriesPage() {
-    return <h1>CategoriesPage</h1>;
+    return <h1 className="font-bold">CategoriesPage</h1>;
 }
 
 export default CategoriesPage;
