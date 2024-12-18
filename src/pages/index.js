@@ -2,10 +2,10 @@
 
 import HomePage from './HomePage.jsx';
 import EventPage from './EventPage.jsx';
+import CreateEventPage from './CreateEventPage.jsx';
 import AdministrationPage from './AdministrationPage.jsx';
 import ItemsPage from './ItemsPage.jsx';
 import CategoriesPage from './CategoriesPage.jsx';
-import EventListsPage from './EventListsPage.jsx';
 
 // --- End import section
 
@@ -15,5 +15,5 @@ export {
     AdministrationPage,
     ItemsPage,
     CategoriesPage,
-    EventListsPage,
+    CreateEventPage,
 };

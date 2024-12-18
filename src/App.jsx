@@ -6,7 +6,7 @@ import {
     AdministrationPage,
     ItemsPage,
     CategoriesPage,
-    EventListsPage,
+    CreateEventPage,
 } from './pages/index.js';
 
 /* 
@@ -27,12 +27,12 @@ const router = createBrowserRouter([
                 element: <HomePage />,
             },
             {
-                path: '/events',
+                path: '/event',
                 element: <EventPage />,
             },
             {
-                path: '/events/lists',
-                element: <EventListsPage />,
+                path: '/new-event',
+                element: <CreateEventPage />,
             },
             {
                 path: '/administration',
