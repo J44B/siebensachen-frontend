@@ -1,58 +1,63 @@
 import { Link } from 'react-router';
 import backpack from '../assets/icons/backpack.svg';
+import list from '../assets/icons/list.svg';
+import userCircle from '../assets/icons/user-circle.svg';
+import search from '../assets/icons/magnifying-glass.svg';
 
 function Header() {
     return (
-        <header className="border-b border-gray-200 bg-gray-50">
-            <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <header className="border-b border-gray-500 bg-[#B7E0FF]">
+            <div className="flex flex-row justify-between">
                 <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-                    <div>
-                        <Link to={'/'}>
-                            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-                                siebensachen
-                            </h1>
-                        </Link>
-                        <p className="mt-1.5 text-sm text-gray-500">
-                            Die Packliste für Überforderte
-                        </p>
-                        <div>
-                            <img src={backpack} alt="backpack" />
+                    <div
+                        id="logo-container"
+                        className="flex flex-row items-center"
+                    >
+                        <img
+                            src={backpack}
+                            alt="backpack"
+                            width={48}
+                            height={48}
+                        />
+                        <div className="flex flex-col">
+                            <Link to={'/'}>
+                                <h1 className="text-base font-bold text-gray-900 sm:text-3xl">
+                                    siebensachen
+                                </h1>
+                            </Link>
+                            <p className="mt-1 text-xs text-gray-600">
+                                Die Packliste für Überforderte
+                            </p>
                         </div>
                     </div>
-
-                    <div className="flex items-center gap-4">
-                        <button
-                            className="inline-flex items-center justify-center gap-1.5 rounded border border-gray-200 bg-white px-5 py-3 text-gray-900 transition hover:text-gray-700 focus:outline-none focus:ring"
-                            type="button"
-                        >
-                            <span className="text-sm font-medium">
-                                {' '}
-                                View all events{' '}
-                            </span>
-
-                            {/* <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="size-4"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                />
-                            </svg> */}
-                        </button>
-
-                        <button
-                            className="inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
-                            type="button"
-                        >
-                            Create event
-                        </button>
-                    </div>
+                </div>
+                <div id="header-buttons" className="flex flex-row gap-2 m-2">
+                    <button
+                        id="search"
+                        className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                        href="#"
+                    >
+                        <img src={search} alt="search" width={32} height={32} />
+                    </button>
+                    <button
+                        id="user-circle"
+                        className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                        href="#"
+                    >
+                        <img
+                            src={userCircle}
+                            alt="profile"
+                            width={32}
+                            height={32}
+                        />
+                    </button>
+                    <button
+                        id="menu-button"
+                        className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                        href="#"
+                    >
+                        <img src={list} alt="menu" width={32} height={32} />
+                    </button>
                 </div>
             </div>
         </header>
