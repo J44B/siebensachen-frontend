@@ -1,6 +1,62 @@
-import { Link } from 'react-router';
+import { useNavigate, Link } from 'react-router';
+import axios from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 function SignUpForm() {
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        user_name: '',
+        email: '',
+        password: '',
+    });
+
+    const navigate = useNavigate();
+
+    // handleChange
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    }
+
+    // handleSignUp
+
+    async function handleSignUp(e) {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/users/signup`,
+                {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    userName: formData.userName,
+                    email: formData.email,
+                    password: formData.password,
+                },
+                {
+                    withCredentials: true,
+                },
+            );
+
+            if (response.status === 201) {
+                navigate('/login');
+                toast.success('Registrierung erfolgreich.');
+            }
+        } catch (error) {
+            toast.error(
+                error.response.data.error || 'Registrierung fehlgeschlagen.',
+            );
+            console.error(error);
+        }
+    }
+
     return (
         /* ------------------ Begin section with picture ------------------  */
         <section className="bg-white">
@@ -44,14 +100,11 @@ function SignUpForm() {
 
                         {/* ------------------ Begin form ------------------  */}
                         <form
-                            action="#"
                             className="mt-8 grid grid-cols-6 gap-6"
+                            onSubmit={handleSignUp}
                         >
                             <div className="col-span-6 sm:col-span-3">
-                                <label
-                                    htmlFor="Vorname"
-                                    className="block text-base font-medium text-gray-700"
-                                >
+                                <label className="block text-base font-medium text-gray-700">
                                     Vorname
                                 </label>
 
@@ -59,16 +112,15 @@ function SignUpForm() {
                                     type="text"
                                     id="Vorname"
                                     name="vorname"
+                                    value={formData.firstName}
+                                    onChange={handleChange}
                                     placeholder="Vorname"
                                     className="mt-1 p-2 w-full rounded-md border-2 border-spacing-2 border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
                                 />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3">
-                                <label
-                                    htmlFor="Nachname"
-                                    className="block text-base font-medium text-gray-700"
-                                >
+                                <label className="block text-base font-medium text-gray-700">
                                     Nachname
                                 </label>
 
@@ -76,16 +128,32 @@ function SignUpForm() {
                                     type="text"
                                     id="Nachname"
                                     name="nachname"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
                                     placeholder="Nachname"
                                     className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
                                 />
                             </div>
 
                             <div className="col-span-6">
-                                <label
-                                    htmlFor="Email"
-                                    className="block text-base font-medium text-gray-700"
-                                >
+                                <label className="block text-base font-medium text-gray-700">
+                                    Benutzername
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="Benutzername"
+                                    name="benutzername"
+                                    value={formData.userName}
+                                    onChange={handleChange}
+                                    placeholder="Benutzername"
+                                    required
+                                    className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
+                                />
+                            </div>
+
+                            <div className="col-span-6">
+                                <label className="block text-base font-medium text-gray-700">
                                     {' '}
                                     E-Mail-Adresse{' '}
                                 </label>
@@ -94,25 +162,30 @@ function SignUpForm() {
                                     type="email"
                                     id="Email"
                                     name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
                                     placeholder="E-Mail-Adresse"
+                                    required
                                     className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
                                 />
                             </div>
 
                             <div className="col-span-6">
-                                <label
-                                    htmlFor="Password"
-                                    className="block text-base font-medium text-gray-700"
-                                >
+                                <label className="block text-base font-medium text-gray-700">
                                     {' '}
                                     Passwort{' '}
                                 </label>
+
+                                {/* Add function to show and hide password */}
 
                                 <input
                                     type="password"
                                     id="Password"
                                     name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
                                     placeholder="Passwort"
+                                    required
                                     className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
                                 />
                             </div>
@@ -176,7 +249,7 @@ function SignUpForm() {
                                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                     Du hast schon einen Account?
                                 </p>
-                                <Link to="/signup" className="underline">
+                                <Link to="/" className="underline">
                                     Anmelden
                                 </Link>
                                 .

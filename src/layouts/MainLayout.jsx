@@ -6,7 +6,7 @@ export function MainLayout() {
         <>
             <div className="flex flex-col h-screen justify-between max-w-full">
                 <Header />
-                <main className="container max-w-7xl mx-auto">
+                <main className="container max-w-7xl mx-auto my-2">
                     <Outlet />
                 </main>
                 <Footer />
