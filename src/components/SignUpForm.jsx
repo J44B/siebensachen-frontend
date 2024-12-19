@@ -1,3 +1,5 @@
+import { Link } from 'react-router';
+
 function SignUpForm() {
     return (
         /* ------------------ Begin section with picture ------------------  */
@@ -22,6 +24,8 @@ function SignUpForm() {
                         </p>
                     </div>
                 </section>
+
+                {/* The semantic HTML is not well designed. It needs further inspection, because the following <div> has redundant text and is read by screenreaders. */}
 
                 <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
                     <div className="max-w-xl lg:max-w-3xl">
@@ -95,7 +99,7 @@ function SignUpForm() {
                                 />
                             </div>
 
-                            <div className="col-span-6 sm:col-span-3">
+                            <div className="col-span-6">
                                 <label
                                     htmlFor="Password"
                                     className="block text-base font-medium text-gray-700"
@@ -169,17 +173,13 @@ function SignUpForm() {
                                 >
                                     Account erstellen
                                 </button>
-
                                 <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                    Already have an account?
-                                    <a
-                                        href="#"
-                                        className="text-gray-700 underline"
-                                    >
-                                        Log in
-                                    </a>
-                                    .
+                                    Du hast schon einen Account?
                                 </p>
+                                <Link to="/signup" className="underline">
+                                    Anmelden
+                                </Link>
+                                .
                             </div>
                             {/* ------------------ End form ------------------  */}
                         </form>
