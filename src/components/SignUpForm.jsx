@@ -18,7 +18,7 @@ function SignUpForm() {
 
     function handleChange(e) {
         const { name, value } = e.target;
-
+        console.log(value);
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -31,7 +31,7 @@ function SignUpForm() {
         e.preventDefault();
 
         try {
-            const { response } = await axios.post(
+            const response = await axios.post(
                 `${import.meta.env.VITE_API_URL}/users/signup`,
                 {
                     firstName: formData.firstName,
@@ -40,7 +40,7 @@ function SignUpForm() {
                     email: formData.email,
                     password: formData.password,
                 },
-                { headers: { 'Content-Type': 'multipart/form-data' } },
+                { headers: { 'Content-Type': 'application/json' } },
                 {
                     withCredentials: true,
                 },
@@ -85,8 +85,10 @@ function SignUpForm() {
                         <div className="relative">
                             <input
                                 type="text"
+                                name="firstName"
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                 placeholder="Enter first name"
+                                value={formData.firstName}
                                 onChange={handleChange}
                             />
                         </div>
@@ -100,8 +102,10 @@ function SignUpForm() {
                         <div className="relative">
                             <input
                                 type="text"
+                                name="lastName"
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                 placeholder="Enter last name"
+                                value={formData.lastName}
                                 onChange={handleChange}
                             />
                         </div>
@@ -114,9 +118,11 @@ function SignUpForm() {
                         <div className="relative">
                             <input
                                 type="text"
+                                name="userName"
                                 required
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                 placeholder="Enter user name"
+                                value={formData.userName}
                                 onChange={handleChange}
                             />
                         </div>
@@ -129,9 +135,11 @@ function SignUpForm() {
                         <div className="relative">
                             <input
                                 type="email"
+                                name="email"
                                 required
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                 placeholder="Enter email"
+                                value={formData.email}
                                 onChange={handleChange}
                             />
                         </div>
@@ -144,9 +152,11 @@ function SignUpForm() {
                         <div className="relative">
                             <input
                                 type="password"
+                                name="password"
                                 required
                                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                 placeholder="Enter password"
+                                value={formData.password}
                                 onChange={handleChange}
                             />
                             <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
