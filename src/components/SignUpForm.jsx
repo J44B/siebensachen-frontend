@@ -71,7 +71,7 @@ function SignUpForm() {
 
                 <form
                     onSubmit={handleSignUp}
-                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
+                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 drop-shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
                 >
                     <p className="text-center text-lg font-semibold  text-slate-100">
                         Create your account
@@ -86,7 +86,7 @@ function SignUpForm() {
                             <input
                                 type="text"
                                 name="firstName"
-                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm"
                                 placeholder="Enter first name"
                                 value={formData.firstName}
                                 onChange={handleChange}
@@ -185,7 +185,7 @@ function SignUpForm() {
                     </div>
                     <button
                         type="submit"
-                        className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565]"
+                        className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
                     >
                         Sign up
                     </button>
