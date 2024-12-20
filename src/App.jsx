@@ -7,6 +7,7 @@ import {
     ItemsPage,
     CategoriesPage,
     CreateEventPage,
+    SignUpPage,
 } from './pages/index.js';
 
 /* 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <HomePage />,
+            },
+            {
+                path: '/signup',
+                element: <SignUpPage />,
             },
             {
                 path: '/event',

@@ -39,18 +39,19 @@ function Header() {
                     >
                         <img src={search} alt="search" width={32} height={32} />
                     </button>
-                    <button
-                        id="user-circle"
-                        className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                        href="#"
-                    >
-                        <img
-                            src={userCircle}
-                            alt="profile"
-                            width={32}
-                            height={32}
-                        />
-                    </button>
+                    <Link to={'/signup'}>
+                        <button
+                            id="user-circle"
+                            className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
+                        >
+                            <img
+                                src={userCircle}
+                                alt="profile"
+                                width={32}
+                                height={32}
+                            />
+                        </button>
+                    </Link>
                     <button
                         id="menu-button"
                         className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"

@@ -4,9 +4,12 @@ import { Header, Footer } from '../components/index.js';
 export function MainLayout() {
     return (
         <>
-            <div className="flex flex-col h-screen justify-between max-w-full">
+            <div className="flex flex-col h-screen justify-between max-w-full bg-[#F8EDED]">
                 <Header />
-                <main className="container max-w-7xl mx-auto">
+                <main
+                    id="main-site-container"
+                    className="max-w-5xl mx-auto my-4"
+                >
                     <Outlet />
                 </main>
                 <Footer />
