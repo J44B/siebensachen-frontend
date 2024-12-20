@@ -5,9 +5,9 @@ import { toast } from 'react-hot-toast';
 
 function SignUpForm() {
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        user_name: '',
+        firstName: '',
+        lastName: '',
+        userName: '',
         email: '',
         password: '',
     });
@@ -31,7 +31,7 @@ function SignUpForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.post(
+            const { response } = await axios.post(
                 `${import.meta.env.VITE_API_URL}/users/signup`,
                 {
                     firstName: formData.firstName,
@@ -40,11 +40,11 @@ function SignUpForm() {
                     email: formData.email,
                     password: formData.password,
                 },
+                { headers: { 'Content-Type': 'multipart/form-data' } },
                 {
                     withCredentials: true,
                 },
             );
-
             if (response.status === 201) {
                 navigate('/login');
                 toast.success('Registrierung erfolgreich.');
@@ -58,208 +58,137 @@ function SignUpForm() {
     }
 
     return (
-        /* ------------------ Begin section with picture ------------------  */
-        <section className="bg-white">
-            <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-                <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
-                    <img
-                        alt="menschen, die einen van packen"
-                        src="../src/assets/images/sign-up-image-smaller.png"
-                        className="absolute inset-0 h-full w-full object-cover opacity-80"
-                    />
+        <div className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-lg">
+                <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
+                    Welcome to <b>sieben</b>
+                    <i>sachen!</i>
+                </h1>
 
-                    <div className="hidden lg:relative lg:block lg:p-12">
-                        <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-                            Willkommen bei siebensachen
-                        </h2>
+                <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
+                    Your life. Your moments. Together.
+                </p>
 
-                        <p className="mt-4 leading-relaxed text-white/90">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing
-                            elit. Eligendi nam dolorum aliquam, quibusdam
-                            aperiam voluptatum.
-                        </p>
-                    </div>
-                </section>
+                <form
+                    onSubmit={handleSignUp}
+                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
+                >
+                    <p className="text-center text-lg font-semibold  text-slate-100">
+                        Create your account
+                    </p>
+                    {/* ----------- firstName ------------ */}
+                    <div>
+                        <label htmlFor="firstName" className="sr-only">
+                            First name
+                        </label>
 
-                {/* The semantic HTML is not well designed. It needs further inspection, because the following <div> has redundant text and is read by screenreaders. */}
-
-                <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-                    <div className="max-w-xl lg:max-w-3xl">
-                        <div className="relative -mt-16 block lg:hidden">
-                            <h1 className="mt-12 text-xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                                Willkommen bei siebensachen
-                            </h1>
-
-                            <p className="mt-4 leading-relaxed text-gray-500">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing elit. Eligendi nam dolorum aliquam,
-                                quibusdam aperiam voluptatum.
-                            </p>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                placeholder="Enter first name"
+                                onChange={handleChange}
+                            />
                         </div>
-                        {/* ------------------ End section with picture ------------------  */}
-
-                        {/* ------------------ Begin form ------------------  */}
-                        <form
-                            className="mt-8 grid grid-cols-6 gap-6"
-                            onSubmit={handleSignUp}
-                        >
-                            <div className="col-span-6 sm:col-span-3">
-                                <label className="block text-base font-medium text-gray-700">
-                                    Vorname
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="Vorname"
-                                    name="vorname"
-                                    value={formData.firstName}
-                                    onChange={handleChange}
-                                    placeholder="Vorname"
-                                    className="mt-1 p-2 w-full rounded-md border-2 border-spacing-2 border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
-                                />
-                            </div>
-
-                            <div className="col-span-6 sm:col-span-3">
-                                <label className="block text-base font-medium text-gray-700">
-                                    Nachname
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="Nachname"
-                                    name="nachname"
-                                    value={formData.lastName}
-                                    onChange={handleChange}
-                                    placeholder="Nachname"
-                                    className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
-                                />
-                            </div>
-
-                            <div className="col-span-6">
-                                <label className="block text-base font-medium text-gray-700">
-                                    Benutzername
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="Benutzername"
-                                    name="benutzername"
-                                    value={formData.userName}
-                                    onChange={handleChange}
-                                    placeholder="Benutzername"
-                                    required
-                                    className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
-                                />
-                            </div>
-
-                            <div className="col-span-6">
-                                <label className="block text-base font-medium text-gray-700">
-                                    {' '}
-                                    E-Mail-Adresse{' '}
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="Email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="E-Mail-Adresse"
-                                    required
-                                    className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
-                                />
-                            </div>
-
-                            <div className="col-span-6">
-                                <label className="block text-base font-medium text-gray-700">
-                                    {' '}
-                                    Passwort{' '}
-                                </label>
-
-                                {/* Add function to show and hide password */}
-
-                                <input
-                                    type="password"
-                                    id="Password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Passwort"
-                                    required
-                                    className="mt-1 p-2 w-full rounded-md border-2  border-[#173B45] bg-white text-base italic text-gray-700 shadow-lg focus:outline-none focus:border-[#173B45] focus:border-4"
-                                />
-                            </div>
-
-                            {/* ----------------------- Begin accept newsletter ----------------------- */}
-
-                            {/* <div className="col-span-6">
-                                <label
-                                    htmlFor="MarketingAccept"
-                                    className="flex gap-4"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        id="MarketingAccept"
-                                        name="marketing_accept"
-                                        className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
-                                    />
-
-                                    <span className="text-sm text-gray-700">
-                                        I want to receive emails about events,
-                                        product updates and company
-                                        announcements.
-                                    </span>
-                                </label>
-                            </div> */}
-
-                            {/* ----------------------- End accept newsletter ----------------------- */}
-
-                            {/* ----------------------- Begin accept terms & conditions ----------------------- */}
-
-                            {/* <div className="col-span-6">
-                                <p className="text-sm text-gray-500">
-                                    By creating an account, you agree to our
-                                    <a
-                                        href="#"
-                                        className="text-gray-700 underline"
-                                    >
-                                        {' '}
-                                        terms and conditions{' '}
-                                    </a>
-                                    and
-                                    <a
-                                        href="#"
-                                        className="text-gray-700 underline"
-                                    >
-                                        privacy policy
-                                    </a>
-                                    .
-                                </p>
-                            </div> */}
-
-                            {/* ----------------------- End accept terms & conditions ----------------------- */}
-
-                            <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                                <button
-                                    type="submit"
-                                    className="inline-block shrink-0 rounded-md border border-[#E78F81] bg-[#E78F81] px-12 py-3 text-sm font-semibold text-[#173B45] transition hover:bg-transparent focus:outline-none focus:border-[#173B45] focus:border-4"
-                                >
-                                    Account erstellen
-                                </button>
-                                <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                    Du hast schon einen Account?
-                                </p>
-                                <Link to="/" className="underline">
-                                    Anmelden
-                                </Link>
-                                .
-                            </div>
-                            {/* ------------------ End form ------------------  */}
-                        </form>
                     </div>
-                </main>
+                    {/* ----------- lastName ------------ */}
+                    <div>
+                        <label htmlFor="lastName" className="sr-only">
+                            Last name
+                        </label>
+
+                        <div className="relative">
+                            <input
+                                type="text"
+                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                placeholder="Enter last name"
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    {/* ----------- userName ------------ */}
+                    <div>
+                        <label htmlFor="userName" className="sr-only">
+                            User name
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="text"
+                                required
+                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                placeholder="Enter user name"
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    {/* ----------- email ------------ */}
+                    <div>
+                        <label htmlFor="email" className="sr-only">
+                            Email
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="email"
+                                required
+                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                placeholder="Enter email"
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    {/* ----------- password ------------ */}
+                    <div>
+                        <label htmlFor="password" className="sr-only">
+                            Password
+                        </label>
+                        <div className="relative">
+                            <input
+                                type="password"
+                                required
+                                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                placeholder="Enter password"
+                                onChange={handleChange}
+                            />
+                            <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="size-4 text-gray-400"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                    />
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565]"
+                    >
+                        Sign up
+                    </button>
+
+                    <p className="text-center text-sm text-gray-200">
+                        Already have an account? <br />
+                        <Link to="/signin" className="underline" href="#">
+                            Sign in
+                        </Link>
+                    </p>
+                </form>
             </div>
-        </section>
+        </div>
     );
 }
 
