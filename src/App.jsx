@@ -8,6 +8,7 @@ import {
     CategoriesPage,
     CreateEventPage,
     SignUpPage,
+    LoginPage,
 } from './pages/index.js';
 
 /* 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUpPage />,
+            },
+            {
+                path: '/login',
+                element: <LoginPage />,
             },
             {
                 path: '/event',

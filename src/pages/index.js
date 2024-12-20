@@ -7,6 +7,7 @@ import AdministrationPage from './AdministrationPage.jsx';
 import ItemsPage from './ItemsPage.jsx';
 import CategoriesPage from './CategoriesPage.jsx';
 import SignUpPage from './SignUpPage.jsx';
+import LoginPage from './LoginPage.jsx';
 
 // --- End import section
 
@@ -18,4 +19,5 @@ export {
     CategoriesPage,
     CreateEventPage,
     SignUpPage,
+    LoginPage,
 };
