@@ -15,7 +15,7 @@ function LoginForm() {
 
     function handleChange(e) {
         const { name, value } = e.target;
-        console.log(value);
+        // console.log(value);
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -60,7 +60,7 @@ function LoginForm() {
                 </h1>
 
                 <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-                    Your life. Your moments. Together.
+                    Your moments. Together. Prepared.
                 </p>
             </div>
 
@@ -129,15 +129,15 @@ function LoginForm() {
                 </div>
                 <button
                     type="submit"
-                    className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565]"
+                    className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
                 >
-                    Sign up
+                    Login
                 </button>
 
                 <p className="text-center text-sm text-gray-200">
                     Already have an account? <br />
-                    <Link to="/signin" className="underline" href="#">
-                        Sign in
+                    <Link to="/signup" className="underline" href="#">
+                        Register here
                     </Link>
                 </p>
             </form>
