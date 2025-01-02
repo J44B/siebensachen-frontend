@@ -2,25 +2,15 @@ import { useNavigate, Link } from 'react-router';
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useAuth } from '../contexts/AuthProvider';
 
 function LoginForm() {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const { setIsLoggedIn, checkUser } = useAuth();
 
     const navigate = useNavigate();
-
-    // handleChange
-
-    function handleChange(e) {
-        const { name, value } = e.target;
-        // console.log(value);
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    }
 
     // handleLogin
 
@@ -31,20 +21,30 @@ function LoginForm() {
             const response = await axios.post(
                 `${import.meta.env.VITE_API_URL}/users/login`,
                 {
-                    email: formData.email,
-                    password: formData.password,
+                    email,
+                    password,
                 },
                 { headers: { 'Content-Type': 'application/json' } },
                 {
                     withCredentials: true,
                 },
             );
-            if (response.status === 201) {
-                navigate('/events');
-                toast.success('Login erfolgreich.');
+            if (response.status === 200) {
+                setIsLoggedIn(true);
+                const user = await checkUser();
+
+                if (user) {
+                    toast.success(`Welcome back, ${user.userName}.`);
+                } else {
+                    toast.error(
+                        'Could not retrieve user data. Please try again.',
+                    );
+                }
+                navigate('/');
             }
         } catch (error) {
-            toast.error(error.response.data.error || 'Login fehlgeschlagen.');
+            setError(error.response.data.error || 'Login failed');
+            toast.error(error.response.data.error);
             console.error(error);
         }
     }
@@ -54,14 +54,17 @@ function LoginForm() {
     return (
         <div className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
             <div className="mx-auto max-w-lg">
-                <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
+                <h2 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
                     Welcome to <b>sieben</b>
                     <i>sachen!</i>
-                </h1>
+                </h2>
 
                 <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
                     Your moments. Together. Prepared.
                 </p>
+                {error && (
+                    <p className="text-red-500 mb-4 font-semibold">{error}</p>
+                )}
             </div>
 
             <form
@@ -83,8 +86,8 @@ function LoginForm() {
                             required
                             className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                             placeholder="Enter email"
-                            value={formData.email}
-                            onChange={handleChange}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                 </div>
@@ -100,8 +103,8 @@ function LoginForm() {
                             required
                             className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                             placeholder="Enter password"
-                            value={formData.password}
-                            onChange={handleChange}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
                             <svg

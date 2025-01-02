@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router';
 import axios from 'axios';
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
 
 function SignUpForm() {
     const [formData, setFormData] = useState({
@@ -46,12 +46,12 @@ function SignUpForm() {
             );
             if (response.status === 201) {
                 navigate('/login');
-                toast.success('Registrierung erfolgreich.');
+                // toast.success('Registrierung erfolgreich.');
             }
         } catch (error) {
-            toast.error(
-                error.response.data.error || 'Registrierung fehlgeschlagen.',
-            );
+            // toast.error(
+            //     error.response.data.error || 'Registrierung fehlgeschlagen.',
+            // );
             console.error(error);
         }
     }
