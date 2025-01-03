@@ -43,8 +43,9 @@ function LoginForm() {
                 navigate('/');
             }
         } catch (error) {
-            setError(error.response.data.error || 'Login failed');
-            toast.error(error.response.data.error);
+            const errorMessage = error.response?.data?.error || 'Login failed';
+            setError(errorMessage);
+            toast.error(errorMessage);
             console.error(error);
         }
     }
