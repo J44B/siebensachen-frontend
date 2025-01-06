@@ -1,10 +1,12 @@
 import { Link } from 'react-router';
 import backpack from '../assets/icons/backpack.svg';
 import list from '../assets/icons/list.svg';
-import userCircle from '../assets/icons/user-circle.svg';
 import search from '../assets/icons/magnifying-glass.svg';
+import { useState } from 'react';
+import { UserMenu } from './indexComponents.js';
 
 function Header() {
+    const [MenuOpen, setMenuOpen] = useState(false);
     return (
         <header className="border-b border-gray-500 bg-[#B7E0FF]">
             <div className="flex flex-row justify-between">
@@ -39,19 +41,7 @@ function Header() {
                     >
                         <img src={search} alt="search" width={32} height={32} />
                     </button>
-                    <Link to={'/signup'}>
-                        <button
-                            id="user-circle"
-                            className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
-                        >
-                            <img
-                                src={userCircle}
-                                alt="profile"
-                                width={32}
-                                height={32}
-                            />
-                        </button>
-                    </Link>
+                    <UserMenu MenuOpen={MenuOpen} setMenuOpen={setMenuOpen} />
                     <button
                         id="menu-button"
                         className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"

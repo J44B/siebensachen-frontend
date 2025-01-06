@@ -1,7 +1,7 @@
 import { useNavigate, Link } from 'react-router';
 import axios from 'axios';
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
 
 function SignUpForm() {
     const [formData, setFormData] = useState({
@@ -18,7 +18,6 @@ function SignUpForm() {
 
     function handleChange(e) {
         const { name, value } = e.target;
-        console.log(value);
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -47,12 +46,12 @@ function SignUpForm() {
             );
             if (response.status === 201) {
                 navigate('/login');
-                toast.success('Registrierung erfolgreich.');
+                // toast.success('Registrierung erfolgreich.');
             }
         } catch (error) {
-            toast.error(
-                error.response.data.error || 'Registrierung fehlgeschlagen.',
-            );
+            // toast.error(
+            //     error.response.data.error || 'Registrierung fehlgeschlagen.',
+            // );
             console.error(error);
         }
     }
@@ -66,7 +65,7 @@ function SignUpForm() {
                 </h1>
 
                 <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-                    Your life. Your moments. Together.
+                    Your moments. Together. Prepared.
                 </p>
 
                 <form
@@ -192,8 +191,8 @@ function SignUpForm() {
 
                     <p className="text-center text-sm text-gray-200">
                         Already have an account? <br />
-                        <Link to="/signin" className="underline" href="#">
-                            Sign in
+                        <Link to="/login" className="underline" href="#">
+                            Log in here
                         </Link>
                     </p>
                 </form>
