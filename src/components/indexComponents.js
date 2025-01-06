@@ -5,7 +5,8 @@ import Footer from './Footer.jsx';
 import SignUpForm from './SignUpForm.jsx';
 import LoginForm from './LoginForm.jsx';
 import UserMenu from './UserMenu.jsx';
+import CreateEventForm from './CreateEventForm.jsx';
 
 // --- End import section
 
-export { Header, Footer, SignUpForm, LoginForm, UserMenu };
+export { Header, Footer, SignUpForm, LoginForm, UserMenu, CreateEventForm };
