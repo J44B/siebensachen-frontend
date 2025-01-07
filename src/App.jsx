@@ -42,7 +42,7 @@ const router = createBrowserRouter([
                 element: <ProfilePage />,
             },
             {
-                path: '/event',
+                path: '/events/:id',
                 element: <EventPage />,
             },
             {
