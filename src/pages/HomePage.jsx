@@ -11,11 +11,9 @@ import axios from 'axios';
 import { EventCard } from '../components/indexComponents.js';
 
 function HomePage() {
-    const [events, setevents] = useState([]);
+    const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-
-    const MAX_CONTENT_LENGTH = 150;
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -23,12 +21,11 @@ function HomePage() {
                 const response = await axios.get(
                     `${import.meta.env.VITE_API_URL}/events`,
                 );
-                const reversedEvents = response.data.reverse();
-                setEvents(reversedEvents);
+                setEvents(response.data);
                 setLoading(false);
             } catch (error) {
-                setLoading(false);
                 setError(true);
+                setLoading(false);
                 console.error(error);
             }
         };
@@ -42,13 +39,19 @@ function HomePage() {
         return (
             <div className="h-screen flex justify-center items-center">
                 <p className="text-red-500">
-                    Error loading posts. Please try again later.
+                    Error loading events. Please try again later.
                 </p>
             </div>
         );
     }
 
-    return <h1>These are my events!</h1>;
+    return (
+        <div>
+            {events?.map((event) => (
+                <EventCard key={event.id} data={event} />
+            ))}
+        </div>
+    );
 }
 
 export default HomePage;
