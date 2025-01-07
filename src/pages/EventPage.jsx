@@ -1,7 +1,7 @@
-import { CreateEventForm } from '../components/indexComponents.js';
+import { EventCard } from '../components/indexComponents.js';
 
 function EventPage() {
-    return <h1>View your single event here</h1>;
+    return <EventCard />;
 }
 
 export default EventPage;
