@@ -11,8 +11,6 @@ Todos
     - button "activate recurrence"
     - description
 - buttons
-    - cancel
-        - closes form and navigates back to HomePage
     - create event
         - sends request to backend
         - closes form
@@ -20,18 +18,82 @@ Todos
 - design
     - make image, date and recurrence fit nicely
 */
-
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 import camp from '../assets/images/festival-camp.jpg';
 
 function CreateEventForm() {
+    const [formData, setFormData] = useState({
+        title: '',
+        startDate: '',
+        endDate: '',
+        description: '',
+        imageUrl: '',
+    });
+
+    const navigate = useNavigate();
+
+    // handleChange
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    }
+
+    // handle createEvent
+
+    async function handleEventCreation(e) {
+        e.preventDefault();
+        try {
+            const token = Cookies.get('token');
+
+            const response = await axios.post(
+                `${import.meta.env.VITE_API_URL}/events/create`,
+                {
+                    title: formData.title,
+                    startDate: formData.startDate,
+                    endDate: formData.endDate,
+                    description: formData.description,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    withCredentials: true,
+                },
+            );
+            if (response.status === 201) {
+                navigate('/');
+                // toast.success('Event created sucessfully');
+            }
+        } catch (error) {
+            // toast.error(
+            //     error.response.data.error || 'Could not create event',
+            // );
+            console.error(error);
+        }
+    }
+
     return (
         <div className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-lg">
-                <form className="mb-0 mt-6 space-y-4 rounded-lg p-4 drop-shadow-2xl sm:p-6 lg:p-8 bg-[#697565]">
-                    <p className="text-center text-lg font-semibold  text-slate-100">
-                        Create a new event
-                    </p>
-                    <div>
+            <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
+                Create a new event
+            </h1>
+            <div
+                id="form-container"
+                className="mx-auto max-w-screen-xl sm:px-6 lg:px-8"
+            >
+                <form
+                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 drop-shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
+                    onSubmit={handleEventCreation}
+                >
+                    <div id="title">
                         <label className="sr-only" htmlFor="title">
                             Title
                         </label>
@@ -40,139 +102,147 @@ function CreateEventForm() {
                             placeholder="Title"
                             type="text"
                             id="title"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
                         />
                     </div>
-
-                    <div className="grid grid-rows-3 grid-cols-2 gap-4 content-center">
-                        <div className="row-span-3">
+                    <div
+                        id="upper-container"
+                        className="grid grid-cols-2 grid-rows-3 gap-4"
+                    >
+                        <div id="left-img-container" className="span-rows-3">
                             <label className="sr-only" htmlFor="image-url">
                                 Upload an image
                             </label>
                             <img
-                                className="w-full rounded-lg border-gray-200  p-3 text-sm"
+                                className="w-auto rounded-lg border-gray-200 text-sm"
                                 src={camp}
+                                name="imageUrl"
+                                value={formData.imageUrl}
+                                onChange={handleChange}
                             />
                         </div>
-
-                        <div>
-                            <label className="sr-only" htmlFor="start-date">
-                                Start date
-                            </label>
-                            <input
-                                className="w-fit rounded-lg border-gray-200 p-3 text-sm"
-                                placeholder="Start date"
-                                type="date"
-                                id="start-date"
-                            />
-                        </div>
-                        <div>
-                            <label className="sr-only" htmlFor="end-date">
-                                End date
-                            </label>
-                            <input
-                                className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                placeholder="End date"
-                                type="date"
-                                id="end-date"
-                            />
-                        </div>
-                        <div id="recurrence" className="grid grid-cols-3">
-                            <div className="col-span-2">
-                                <label
-                                    className="sr-only"
-                                    htmlFor="recurrence-pattern"
-                                >
-                                    Recurrence
+                        <div
+                            id="right-input-container"
+                            className="grid grid-rows-3"
+                        >
+                            <div id="startdate">
+                                <label className="sr-only" htmlFor="startDate">
+                                    Start date
                                 </label>
                                 <input
-                                    className="row-span-1 w-full rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Recurrence"
-                                    type="text"
-                                    id="recurrence-pattern"
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Start date"
+                                    type="date"
+                                    id="startDate"
+                                    name="startDate"
+                                    value={formData.startDate}
+                                    onChange={handleChange}
                                 />
                             </div>
-                            <div>
-                                <button className=""></button>
+                            <div id="enddate">
+                                <label className="sr-only" htmlFor="endDate">
+                                    End date
+                                </label>
+                                <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="End date"
+                                    type="date"
+                                    id="endDate"
+                                    name="endDate"
+                                    value={formData.endDate}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div
+                                id="recurrence-container"
+                                className="flex flex-cols-3 gap-4 justify-between items-center"
+                            >
+                                <div className="col-span-2">
+                                    <label
+                                        className="sr-only"
+                                        htmlFor="recurrence-pattern"
+                                    >
+                                        Recurrence
+                                    </label>
+                                    <input
+                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                        placeholder="Select recurrence"
+                                        type="text"
+                                        id="recurrence-pattern"
+                                    />
+                                </div>
+                                <div id="recurrence-toggle">
+                                    <label
+                                        htmlFor="AcceptConditions"
+                                        className="relative inline-block h-8 w-14 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-[#FF8225]"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            id="AcceptConditions"
+                                            className="peer sr-only [&:checked_+_span_svg[data-checked-icon]]:block [&:checked_+_span_svg[data-unchecked-icon]]:hidden"
+                                        />
+                                        <span className="absolute inset-y-0 start-0 z-10 m-1 inline-flex size-6 items-center justify-center rounded-full bg-white text-gray-400 transition-all peer-checked:start-6 peer-checked:text-[#FF8225]">
+                                            <svg
+                                                data-unchecked-icon
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="size-4"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                            <svg
+                                                data-checked-icon
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="hidden size-4"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
-                        <div>
-                            <label
-                                htmlFor="Option1"
-                                className="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                tabIndex="0"
-                            >
-                                <input
-                                    className="sr-only"
-                                    id="Option1"
-                                    type="radio"
-                                    tabIndex="-1"
-                                    name="option"
-                                />
-
-                                <span className="text-sm"> Option 1 </span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="Option2"
-                                className="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                tabIndex="0"
-                            >
-                                <input
-                                    className="sr-only"
-                                    id="Option2"
-                                    type="radio"
-                                    tabIndex="-1"
-                                    name="option"
-                                />
-
-                                <span className="text-sm"> Option 2 </span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="Option3"
-                                className="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                tabIndex="0"
-                            >
-                                <input
-                                    className="sr-only"
-                                    id="Option3"
-                                    type="radio"
-                                    tabIndex="-1"
-                                    name="option"
-                                />
-
-                                <span className="text-sm"> Option 3 </span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="sr-only" htmlFor="message">
-                            Message
-                        </label>
-
-                        <textarea
-                            className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                            placeholder="Message"
-                            rows="8"
-                            id="message"
-                        ></textarea>
-                    </div>
-
-                    <div className="mt-4">
-                        <button
-                            type="submit"
-                            className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                        <div
+                            id="description-container"
+                            className="grid grid-col-2 col-span-2 gap-4 align-center"
                         >
-                            Send Enquiry
-                        </button>
+                            <div id="description-box">
+                                <label
+                                    htmlFor="EventDescription"
+                                    className="sr-only"
+                                >
+                                    {' '}
+                                    Event description{' '}
+                                </label>
+
+                                <textarea
+                                    id="EventDescription"
+                                    className="mt-2 w-full rounded-lg resize-y border-gray-200 align-top shadow-sm sm:text-sm"
+                                    rows="4"
+                                    placeholder="What is this event about...?"
+                                ></textarea>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                            >
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
