@@ -35,7 +35,6 @@ function EventForm({ eventData }) {
     });
 
     useEffect(() => {
-        console.log('eventData:', eventData);
         if (eventData) {
             setFormData({
                 title: eventData.title || '',
@@ -61,10 +60,11 @@ function EventForm({ eventData }) {
         }));
     }
 
-    // handle createEvent
+    // handle EventManipulation
 
     async function handleEventManipulation(e) {
         e.preventDefault();
+
         try {
             const token = Cookies.get('token');
             const method = eventData ? 'put' : 'post';
@@ -88,14 +88,11 @@ function EventForm({ eventData }) {
                     withCredentials: true,
                 },
             );
-            if (response.status === 201) {
+
+            if (response.status === 200) {
                 navigate('/');
-                // toast.success('Event created sucessfully');
             }
         } catch (error) {
-            // toast.error(
-            //     error.response.data.error || 'Could not create event',
-            // );
             console.error(error);
         }
     }
@@ -281,7 +278,7 @@ function EventForm({ eventData }) {
                             {/* ---------- Buttons ---------- */}
                             <button
                                 type="submit"
-                                className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                                className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
                             >
                                 Save
                             </button>
