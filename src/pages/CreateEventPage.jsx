@@ -1,5 +1,7 @@
+import { EventForm } from '../components/indexComponents.js';
+
 function CreateEventPage() {
-    return <h1 className="font-bold">CreateEventPage</h1>;
+    return <EventForm />;
 }
 
 export default CreateEventPage;

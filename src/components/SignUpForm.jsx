@@ -182,6 +182,7 @@ function SignUpForm() {
                             </span>
                         </div>
                     </div>
+                    {/* ----------- button ------------ */}
                     <button
                         type="submit"
                         className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
