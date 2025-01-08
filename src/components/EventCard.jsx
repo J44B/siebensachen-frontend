@@ -6,22 +6,21 @@ function EventCard({ event }) {
     }
 
     return (
-        <article className="flex bg-white transition hover:shadow-xl">
-            <div className="hidden sm:block sm:basis-56">
+        <div className="flex flex-col sm:flex-row overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
+            <div className="sm:block sm:basis-56">
                 <img
                     alt={event.title}
                     src={event.imageUrl ? event.imageUrl : camp}
-                    className="aspect-square h-full w-full object-cover"
+                    className="h-56 w-full object-cover"
                 />
             </div>
-
             <div className="flex flex-1 flex-col justify-between">
                 <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
-                    <a href="#">
+                    <div>
                         <h3 className="font-bold uppercase text-gray-900">
                             {event.title || 'No title available'}
                         </h3>
-                    </a>
+                    </div>
 
                     <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-700">
                         {event.description || 'No description available'}
@@ -37,7 +36,7 @@ function EventCard({ event }) {
                     </button>
                 </div>
             </div>
-        </article>
+        </div>
     );
 }
 
