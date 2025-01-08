@@ -19,18 +19,35 @@ Todos
     - make image, date and recurrence fit nicely
 */
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
-function CreateEventForm() {
+function EventForm({ eventData }) {
     const [formData, setFormData] = useState({
         title: '',
         startDate: '',
         endDate: '',
         description: '',
         imageUrl: '',
+        recurring: false,
+        recurrence_pattern: '',
     });
+
+    useEffect(() => {
+        console.log('eventData:', eventData);
+        if (eventData) {
+            setFormData({
+                title: eventData.title || '',
+                startDate: eventData.startDate || '',
+                endDate: eventData.endDate || '',
+                description: eventData.description || '',
+                imageUrl: eventData.imageUrl || '',
+                recurring: eventData.recurring || false,
+                recurrence_pattern: eventData.recurrence_pattern || '',
+            });
+        }
+    }, [eventData]);
 
     const navigate = useNavigate();
 
@@ -46,18 +63,22 @@ function CreateEventForm() {
 
     // handle createEvent
 
-    async function handleEventCreation(e) {
+    async function handleEventManipulation(e) {
         e.preventDefault();
         try {
             const token = Cookies.get('token');
-
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/events/create`,
+            const method = eventData ? 'put' : 'post';
+            const url = eventData
+                ? `${import.meta.env.VITE_API_URL}/events/${eventData.id}`
+                : `${import.meta.env.VITE_API_URL}/events/create`;
+            const response = await axios[method](
+                url,
                 {
                     title: formData.title,
                     startDate: formData.startDate,
                     endDate: formData.endDate,
                     description: formData.description,
+                    imageUrl: formData.imageUrl,
                 },
                 {
                     headers: {
@@ -82,7 +103,7 @@ function CreateEventForm() {
     return (
         <div className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
             <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
-                Create a new event
+                {eventData ? 'Edit event' : 'Create a new event'}
             </h1>
             <div
                 id="form-container"
@@ -90,8 +111,9 @@ function CreateEventForm() {
             >
                 <form
                     className="mb-0 mt-6 space-y-4 rounded-lg p-4 drop-shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
-                    onSubmit={handleEventCreation}
+                    onSubmit={handleEventManipulation}
                 >
+                    {/* ---------- Title ---------- */}
                     <div id="title">
                         <label className="sr-only" htmlFor="title">
                             Title
@@ -110,22 +132,33 @@ function CreateEventForm() {
                         id="upper-container"
                         className="grid grid-cols-2 grid-rows-3 gap-4"
                     >
+                        {/* ---------- Image ---------- */}
                         <div id="left-img-container" className="span-rows-3">
                             <label className="sr-only" htmlFor="image-url">
                                 Upload an image
                             </label>
-                            <img
-                                className="w-auto rounded-lg border-gray-200 text-sm"
-                                src=""
+                            <input
+                                className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                placeholder="Image URL"
+                                type="text"
+                                id="image-url"
                                 name="imageUrl"
                                 value={formData.imageUrl}
                                 onChange={handleChange}
                             />
+                            {formData.imageUrl && (
+                                <img
+                                    className="w-auto rounded-lg border-gray-200 text-sm mt-2"
+                                    src={formData.imageUrl}
+                                    alt="Event Preview"
+                                />
+                            )}
                         </div>
                         <div
                             id="right-input-container"
                             className="grid grid-rows-3"
                         >
+                            {/* ---------- StartDate ---------- */}
                             <div id="startdate">
                                 <label className="sr-only" htmlFor="startDate">
                                     Start date
@@ -140,8 +173,9 @@ function CreateEventForm() {
                                     onChange={handleChange}
                                 />
                             </div>
+                            {/* ---------- EndDate ---------- */}
                             <div id="enddate">
-                                <label className="sr-only" htmlFor="endDate">
+                                <label htmlFor="endDate" className="sr-only">
                                     End date
                                 </label>
                                 <input
@@ -154,6 +188,7 @@ function CreateEventForm() {
                                     onChange={handleChange}
                                 />
                             </div>
+                            {/* ---------- Recurrence ---------- */}
                             <div
                                 id="recurrence-container"
                                 className="flex flex-cols-3 gap-4 justify-between items-center"
@@ -170,6 +205,9 @@ function CreateEventForm() {
                                         placeholder="Select recurrence"
                                         type="text"
                                         id="recurrence-pattern"
+                                        name="recurrence_pattern"
+                                        value={formData.recurrence_pattern}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div id="recurrence-toggle">
@@ -179,7 +217,10 @@ function CreateEventForm() {
                                     >
                                         <input
                                             type="checkbox"
-                                            id="AcceptConditions"
+                                            id="recurring"
+                                            name="recurring"
+                                            value={formData.recurring}
+                                            onChange={handleChange}
                                             className="peer sr-only [&:checked_+_span_svg[data-checked-icon]]:block [&:checked_+_span_svg[data-unchecked-icon]]:hidden"
                                         />
                                         <span className="absolute inset-y-0 start-0 z-10 m-1 inline-flex size-6 items-center justify-center rounded-full bg-white text-gray-400 transition-all peer-checked:start-6 peer-checked:text-[#FF8225]">
@@ -218,23 +259,26 @@ function CreateEventForm() {
                             id="description-container"
                             className="grid grid-col-2 col-span-2 gap-4 align-center"
                         >
-                            <div id="description-box">
+                            {/* ---------- Description ---------- */}
+                            <div id="description">
                                 <label
-                                    htmlFor="EventDescription"
+                                    htmlFor="description"
                                     className="sr-only"
                                 >
                                     {' '}
                                     Event description{' '}
                                 </label>
-
                                 <textarea
-                                    id="EventDescription"
+                                    id="description"
                                     className="mt-2 w-full rounded-lg resize-y border-gray-200 align-top shadow-sm sm:text-sm"
-                                    rows="4"
+                                    rows="8"
                                     placeholder="What is this event about...?"
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
                                 ></textarea>
                             </div>
-
+                            {/* ---------- Submit ---------- */}
                             <button
                                 type="submit"
                                 className="block w-full rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
@@ -249,4 +293,4 @@ function CreateEventForm() {
     );
 }
 
-export default CreateEventForm;
+export default EventForm;

@@ -1,7 +1,7 @@
-import { CreateEventForm } from '../components/indexComponents.js';
+import { EventForm } from '../components/indexComponents.js';
 
 function CreateEventPage() {
-    return <CreateEventForm />;
+    return <EventForm />;
 }
 
 export default CreateEventPage;
