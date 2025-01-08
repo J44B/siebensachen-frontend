@@ -22,7 +22,6 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import camp from '../assets/images/festival-camp.jpg';
 
 function CreateEventForm() {
     const [formData, setFormData] = useState({
@@ -117,7 +116,7 @@ function CreateEventForm() {
                             </label>
                             <img
                                 className="w-auto rounded-lg border-gray-200 text-sm"
-                                src={camp}
+                                src=""
                                 name="imageUrl"
                                 value={formData.imageUrl}
                                 onChange={handleChange}

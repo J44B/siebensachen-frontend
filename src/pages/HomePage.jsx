@@ -1,12 +1,11 @@
 /*
 
-- fetch events
-- display event cards
+- fetch events [x]
+- display event cards [x]
 
 */
 
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { EventCard } from '../components/indexComponents.js';
 
@@ -45,10 +44,12 @@ function HomePage() {
         );
     }
 
+    // console.log(events);
+
     return (
-        <div>
+        <div className="grid grid-cols-2 gap-4">
             {events?.map((event) => (
-                <EventCard key={event.id} data={event} />
+                <EventCard key={event.id} event={event} />
             ))}
         </div>
     );
