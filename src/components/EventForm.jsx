@@ -17,13 +17,17 @@ Todos
         - navigates to SingleEvent page
 - design
     - make image, date and recurrence fit nicely
+- upload image
+    - to cloudinary
+    - store url in database
 */
 import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { ListCard } from './indexComponents.js';
 
-function EventForm({ eventData }) {
+function EventForm({ eventData, lists }) {
     const [formData, setFormData] = useState({
         title: '',
         startDate: '',
@@ -98,16 +102,13 @@ function EventForm({ eventData }) {
     }
 
     return (
-        <div className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
+        <div className="mx-4 sm:px-6 lg:px-8">
             <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
-                {eventData ? 'Edit event' : 'Create a new event'}
+                {eventData ? 'Edit event' : 'Create new event'}
             </h1>
-            <div
-                id="form-container"
-                className="mx-auto max-w-screen-xl sm:px-6 lg:px-8"
-            >
+            <div id="form-container" className="mx-auto sm:px-6 lg:px-8">
                 <form
-                    className="mb-0 mt-6 space-y-4 rounded-lg p-4 drop-shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
+                    className="mt-6 space-y-4 rounded-lg p-4 drop-shadow-2xl sm:p-6 lg:p-8 bg-[#697565]"
                     onSubmit={handleEventManipulation}
                 >
                     {/* ---------- Title ---------- */}
@@ -127,10 +128,13 @@ function EventForm({ eventData }) {
                     </div>
                     <div
                         id="upper-container"
-                        className="grid grid-cols-2 grid-rows-3 gap-4"
+                        className="grid grid-flow-col gap-4"
                     >
                         {/* ---------- Image ---------- */}
-                        <div id="left-img-container" className="span-rows-3">
+                        <div
+                            id="left-img-container"
+                            className="grid-rows-3 span-rows-3"
+                        >
                             <label className="sr-only" htmlFor="image-url">
                                 Upload an image
                             </label>
@@ -153,7 +157,7 @@ function EventForm({ eventData }) {
                         </div>
                         <div
                             id="right-input-container"
-                            className="grid grid-rows-3"
+                            className="grid grid-rows-3 gap-4"
                         >
                             {/* ---------- StartDate ---------- */}
                             <div id="startdate">
@@ -252,37 +256,51 @@ function EventForm({ eventData }) {
                                 </div>
                             </div>
                         </div>
-                        <div
-                            id="description-container"
-                            className="grid grid-col-2 col-span-2 gap-4 align-center"
-                        >
-                            {/* ---------- Description ---------- */}
-                            <div id="description">
-                                <label
-                                    htmlFor="description"
-                                    className="sr-only"
-                                >
-                                    {' '}
-                                    Event description{' '}
-                                </label>
-                                <textarea
-                                    id="description"
-                                    className="mt-2 w-full rounded-lg resize-y border-gray-200 align-top shadow-sm sm:text-sm"
-                                    rows="8"
-                                    placeholder="What is this event about...?"
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                ></textarea>
-                            </div>
-                            {/* ---------- Buttons ---------- */}
-                            <button
-                                type="submit"
-                                className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
-                            >
-                                Save
-                            </button>
+                    </div>
+                    <div
+                        id="description-container"
+                        className="grid grid-col-2 col-span-2 gap-4 align-center"
+                    >
+                        {/* ---------- Description ---------- */}
+                        <div id="description">
+                            <label htmlFor="description" className="sr-only">
+                                {' '}
+                                Event description{' '}
+                            </label>
+                            <textarea
+                                id="description"
+                                className="mt-2 w-full rounded-lg resize-y border-gray-200 align-top shadow-sm sm:text-sm"
+                                rows="8"
+                                placeholder="What is this event about...?"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                            ></textarea>
                         </div>
+                        {/* ---------- Buttons ---------- */}
+                        <button
+                            type="submit"
+                            className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                        >
+                            Save
+                        </button>
+                    </div>
+                    <span className="flex items-center">
+                        <span className="h-px flex-1 bg-black"></span>
+                        <span className="shrink-0 px-6">
+                            Lists in this event
+                        </span>
+                        <span className="h-px flex-1 bg-black"></span>
+                    </span>
+
+                    <div id="list-container" className="grid grid-cols-2 gap-4">
+                        {lists.length > 0 ? (
+                            lists.map((list) => (
+                                <ListCard key={list.id} list={list} />
+                            ))
+                        ) : (
+                            <p>No lists found.</p>
+                        )}
                     </div>
                 </form>
             </div>

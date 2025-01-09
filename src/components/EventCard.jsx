@@ -53,7 +53,7 @@ function EventCard({ event, onDelete }) {
                             : 'No description available'}
                     </p>
                 </div>
-                {/* ---------- Details button ---------- */}
+                {/* ---------- Buttons ---------- */}
                 <div
                     id="button-area"
                     className="flex items-end justify-between"

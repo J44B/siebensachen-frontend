@@ -10,6 +10,7 @@ import {
     SignUpPage,
     LoginPage,
     ProfilePage,
+    ListPage,
 } from './pages/index.js';
 
 /* 
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
                 path: '/administration',
                 element: <AdministrationPage />,
             },
+            { path: '/list/:id', element: <ListPage /> },
             {
                 path: '/administration/items',
                 element: <ItemsPage />,

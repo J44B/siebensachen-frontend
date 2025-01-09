@@ -3,6 +3,10 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+// Fetch event
+
+// Delete event
+
 export async function deleteEvent(eventId) {
     try {
         const token = Cookies.get('token');
