@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { EventCard } from '../components/indexComponents.js';
+import { deleteEvent } from '../../services/eventServices.js';
 
 function HomePage() {
     const [events, setEvents] = useState([]);
@@ -44,13 +45,35 @@ function HomePage() {
         );
     }
 
-    // console.log(events);
+    const handleDelete = async (eventId) => {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this event?',
+        );
+        if (!confirmed) return;
+
+        try {
+            await deleteEvent(eventId);
+            setEvents((prevEvents) =>
+                prevEvents.filter((event) => event.id !== eventId),
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
-        <div className="grid md:grid-cols-2 gap-8">
-            {events?.map((event) => (
-                <EventCard key={event.id} event={event} />
-            ))}
+        <div>
+            {events.length > 0 ? (
+                events.map((event) => (
+                    <EventCard
+                        key={event.id}
+                        event={event}
+                        onDelete={() => handleDelete(event.id)}
+                    />
+                ))
+            ) : (
+                <p>No events found.</p>
+            )}
         </div>
     );
 }
