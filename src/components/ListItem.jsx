@@ -1,4 +1,6 @@
-function ListItem({ itemName }) {
+function ListItem({ item }) {
+    if (!item) return <p>ListItem says: Could not fetch item.</p>;
+
     return (
         <>
             <div
@@ -6,7 +8,7 @@ function ListItem({ itemName }) {
                 className="flex flex-row items-center border border-[#173B45] rounded p-1 justify-between"
             >
                 <div id="item-name" className="mr-4">
-                    {itemName ? itemName : 'Item Name'}
+                    {item.title}
                 </div>
                 <div id="category-badge">
                     <span className="whitespace-nowrap rounded-full border border-purple-500 px-2.5 py-0.5 text-sm text-purple-700">
