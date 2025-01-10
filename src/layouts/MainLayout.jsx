@@ -8,7 +8,7 @@ export function MainLayout() {
                 <Header />
                 <main
                     id="main-site-container"
-                    className="w-screen mx-auto my-4"
+                    className="max-w-screen-2xl mx-auto my-4"
                 >
                     <Outlet />
                 </main>

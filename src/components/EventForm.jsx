@@ -27,7 +27,7 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { ListCard } from './indexComponents.js';
 
-function EventForm({ eventData, lists }) {
+function EventForm({ eventData, lists = [] }) {
     const [formData, setFormData] = useState({
         title: '',
         startDate: '',

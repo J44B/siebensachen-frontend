@@ -62,7 +62,7 @@ function HomePage() {
     };
 
     return (
-        <div>
+        <div className="grid grid-cols-2 gap-4">
             {events.length > 0 ? (
                 events.map((event) => (
                     <EventCard

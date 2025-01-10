@@ -11,7 +11,7 @@ import {
     LoginPage,
     ProfilePage,
     ListPage,
-} from './pages/index.js';
+} from './pages/indexPages.js';
 
 /* 
 
