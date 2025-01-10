@@ -92,11 +92,16 @@ function EventForm({ eventData }) {
                 },
             );
 
-            if (response.status === 201) {
-                navigate('/');
+            if (response.status === 201 || response.status === 200) {
+                if (eventData) {
+                    navigate(`/events/${eventData.id}`);
+                } else {
+                    navigate('/');
+                }
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error manipulating event:', error);
+            // Add proper error handling here
         }
     }
 

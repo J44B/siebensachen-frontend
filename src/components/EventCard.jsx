@@ -1,8 +1,10 @@
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import { convertDate, calculateDays } from '../../utils/utilityFunctions.js';
 import camp from '../assets/images/festival-camp.jpg';
 
 function EventCard({ event, onDelete }) {
+    const navigate = useNavigate();
+
     if (!event) {
         return <p>Cannot render Card. Event not found.</p>;
     }
@@ -54,11 +56,12 @@ function EventCard({ event, onDelete }) {
                     >
                         Delete event
                     </button>
-                    <Link to={`/events/${event.id}`}>
-                        <button className="block bg-gray-50 px-5 py-3 text-center text-xs font-bold uppercase text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]">
-                            Open event
-                        </button>
-                    </Link>
+                    <button
+                        onClick={() => navigate(`/events/${event.id}`)}
+                        className="block bg-gray-50 px-5 py-3 text-center text-xs font-bold uppercase text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                    >
+                        Open event
+                    </button>
                 </div>
             </div>
         </div>
