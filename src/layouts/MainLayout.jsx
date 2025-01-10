@@ -4,7 +4,7 @@ import { Header, Footer } from '../components/indexComponents.js';
 export function MainLayout() {
     return (
         <>
-            <div className="flex flex-col h-screen justify-between bg-[#F8EDED]">
+            <div className="flex flex-col justify-between bg-[#F8EDED]">
                 <Header />
                 <main
                     id="main-site-container"

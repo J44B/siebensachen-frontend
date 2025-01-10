@@ -10,6 +10,7 @@ import EventCard from './EventCard.jsx';
 import DetailedEventCard from './DetailedEventCard.jsx';
 import EventList from './EventList.jsx';
 import ListCard from './ListCard.jsx';
+import ListItem from './ListItem.jsx';
 
 // --- End import section
 
@@ -24,4 +25,5 @@ export {
     EventList,
     ListCard,
     DetailedEventCard,
+    ListItem,
 };
