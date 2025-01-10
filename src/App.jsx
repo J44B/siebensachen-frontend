@@ -11,6 +11,8 @@ import {
     LoginPage,
     ProfilePage,
     ListPage,
+    EditEventPage,
+    CreateListPage,
 } from './pages/indexPages.js';
 
 /* 
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
                 element: <EventPage />,
             },
             {
+                path: '/edit-event/:id',
+                element: <EditEventPage />,
+            },
+            {
                 path: '/new-event',
                 element: <CreateEventPage />,
             },
@@ -55,6 +61,7 @@ const router = createBrowserRouter([
                 element: <AdministrationPage />,
             },
             { path: '/list/:id', element: <ListPage /> },
+            { path: '/list/create-list', element: <CreateListPage /> },
             {
                 path: '/administration/items',
                 element: <ItemsPage />,

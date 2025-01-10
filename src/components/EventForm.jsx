@@ -25,9 +25,8 @@ import Cookies from 'js-cookie';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-import { ListCard } from './indexComponents.js';
 
-function EventForm({ eventData, lists = [] }) {
+function EventForm({ eventData }) {
     const [formData, setFormData] = useState({
         title: '',
         startDate: '',
@@ -93,7 +92,7 @@ function EventForm({ eventData, lists = [] }) {
                 },
             );
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 navigate('/');
             }
         } catch (error) {
@@ -190,7 +189,7 @@ function EventForm({ eventData, lists = [] }) {
                                 />
                             </div>
                             {/* ---------- Recurrence ---------- */}
-                            <div
+                            {/* <div
                                 id="recurrence-container"
                                 className="flex flex-cols-3 gap-4 justify-between items-center"
                             >
@@ -254,14 +253,14 @@ function EventForm({ eventData, lists = [] }) {
                                         </span>
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
+                    {/* ---------- Description ---------- */}
                     <div
                         id="description-container"
                         className="grid grid-col-2 col-span-2 gap-4 align-center"
                     >
-                        {/* ---------- Description ---------- */}
                         <div id="description">
                             <label htmlFor="description" className="sr-only">
                                 {' '}
@@ -278,29 +277,24 @@ function EventForm({ eventData, lists = [] }) {
                             ></textarea>
                         </div>
                         {/* ---------- Buttons ---------- */}
-                        <button
-                            type="submit"
-                            className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                        <div
+                            id="button-area"
+                            className="flex flex-row-reverse items-end justify-between"
                         >
-                            Save
-                        </button>
-                    </div>
-                    <span className="flex items-center">
-                        <span className="h-px flex-1 bg-black"></span>
-                        <span className="shrink-0 px-6">
-                            Lists in this event
-                        </span>
-                        <span className="h-px flex-1 bg-black"></span>
-                    </span>
-
-                    <div id="list-container" className="grid grid-cols-2 gap-4">
-                        {lists.length > 0 ? (
-                            lists.map((list) => (
-                                <ListCard key={list.id} list={list} />
-                            ))
-                        ) : (
-                            <p>No lists found.</p>
-                        )}
+                            <button
+                                onClick={() => navigate('/')}
+                                type="submit"
+                                className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                            >
+                                Save
+                            </button>
+                            <button
+                                onClick={() => navigate('/')}
+                                className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                            >
+                                Back
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

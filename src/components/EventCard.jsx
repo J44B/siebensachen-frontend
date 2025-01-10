@@ -1,20 +1,10 @@
-/*
-
-Todos
-
-- Make "Days" bold
-
-
-
-*/
-
 import { Link } from 'react-router';
 import { convertDate, calculateDays } from '../../utils/utilityFunctions.js';
 import camp from '../assets/images/festival-camp.jpg';
 
 function EventCard({ event, onDelete }) {
     if (!event) {
-        return <p>Event not found.</p>;
+        return <p>Cannot render Card. Event not found.</p>;
     }
 
     return (

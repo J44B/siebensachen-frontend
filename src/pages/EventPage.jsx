@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
-import { EventForm } from '../components/indexComponents.js';
-import { fetchEventLists } from '../../services/listServices.js';
+import { DetailedEventCard } from '../components/indexComponents.js';
+import { ListCard } from '../components/indexComponents.js';
 
 function EventPage() {
     const { id } = useParams();
@@ -10,45 +10,82 @@ function EventPage() {
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const navigate = useNavigate();
 
+    // Fetch event
     useEffect(() => {
-        async function fetchEventData() {
+        async function fetchEvent() {
             try {
-                console.log(`Fetching event data for id: ${id}`);
-                // Fetch event details
-                const eventResponse = await axios.get(
+                const response = await axios.get(
                     `${import.meta.env.VITE_API_URL}/events/${id}`,
                 );
-                console.log('Event response:', eventResponse.data);
-                setEvent(eventResponse.data);
-
-                // Fetch event lists
-                console.log('Fetching event lists');
-                const listsData = await fetchEventLists(id);
-                console.log('Lists data:', listsData);
-                setLists(listsData);
+                setEvent(response.data);
 
                 setLoading(false);
             } catch (error) {
-                setError(true);
+                if (error.response && error.response.status === 404) {
+                    setError(true);
+                } else {
+                    console.error('Error fetching event data:', error);
+                }
+            } finally {
                 setLoading(false);
-                console.error(error);
             }
         }
-        fetchEventData();
+        fetchEvent();
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error loading event. Try again later.</p>;
-    if (!event) return <p>Event not found.</p>;
+    // Fetch event lists
+    useEffect(() => {
+        async function fetchLists() {
+            const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/lists/${id}`,
+            );
+            setLists(response.data || []);
+            setLoading(false);
+        }
+        fetchLists();
+    }, [id]);
+
+    if (loading) return <p>EventPage says: Loading...</p>;
+    if (error) return <p>EventPage says: Error loading event.</p>;
+    if (!event) return <p>EventPage says: Event not found.</p>;
 
     // implement delete list
 
     return (
         <div id="main-container" className="">
-            <div id="event-container">
-                <EventForm eventData={event} lists={lists} />
-            </div>
+            <section id="event-card-container">
+                <DetailedEventCard event={event} />
+            </section>
+            <span className="my-4 flex items-center">
+                <span className="h-px flex-1 bg-black"></span>
+                <span className="shrink-0 px-6">Lists in this event</span>
+                <span className="h-px flex-1 bg-black"></span>
+            </span>
+            <section id="event-list-container">
+                <div
+                    id="list-card-container"
+                    className="mt-4 grid grid-cols-2 gap-4 items-center"
+                >
+                    {lists.length > 0 ? (
+                        lists.map((list) => (
+                            <ListCard key={list.id} list={list} />
+                        ))
+                    ) : (
+                        <p>No lists found.</p>
+                    )}
+                    <div>
+                        <button
+                            onClick={() => navigate('/list/create-list')}
+                            className="inline-block rounded bg-white p-2 text-black px-10 py-10 hover:shadow-lg"
+                            href="#"
+                        >
+                            New list
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

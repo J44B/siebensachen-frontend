@@ -3,6 +3,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+// fetch lists
 export async function fetchEventLists(eventId) {
     try {
         console.log(`Fetching lists for eventId: ${eventId}`);

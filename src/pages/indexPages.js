@@ -10,6 +10,8 @@ import SignUpPage from './SignUpPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import ProfilePage from './ProfilePage.jsx';
 import ListPage from './ListPage.jsx';
+import EditEventPage from './EditEventPage.jsx';
+import CreateListPage from './CreateListPage.jsx';
 
 // --- End import section
 
@@ -24,4 +26,6 @@ export {
     LoginPage,
     ProfilePage,
     ListPage,
+    EditEventPage,
+    CreateListPage,
 };
