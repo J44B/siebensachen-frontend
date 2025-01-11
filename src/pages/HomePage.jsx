@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { EventCard } from '../components/indexComponents.js';
-import { deleteEvent } from '../../services/eventServices.js';
+import { deleteEvent } from '../services/eventServices.js';
 
 function HomePage() {
     const [events, setEvents] = useState([]);

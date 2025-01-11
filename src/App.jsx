@@ -60,7 +60,7 @@ const router = createBrowserRouter([
                 path: '/administration',
                 element: <AdministrationPage />,
             },
-            { path: '/list/:id', element: <ListPage /> },
+            { path: '/list/:eventId/:listId', element: <ListPage /> },
             { path: '/list/create-list', element: <CreateListPage /> },
             {
                 path: '/administration/items',
