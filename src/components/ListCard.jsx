@@ -1,7 +1,14 @@
+/* TODO 
+
+Opt for useNavigate instead of Link
+
+*/
+
 import { Link } from 'react-router-dom';
 
-function ListCard({ list }) {
+function ListCard({ event, list }) {
     console.log(list);
+    console.log(event);
     if (!list) {
         return <p>List not found.</p>;
     }
@@ -26,7 +33,8 @@ function ListCard({ list }) {
                     />
                 </svg>
             </span>
-            <Link to={`/list/${list.id}`}>
+            <Link to={`/lists/${event.id}/${list.id}`}>
+                {/* <Link to={`/lists/${list.id}`}> */}
                 <div id="title">
                     <h3 className="mt-0.5 text-lg font-medium text-gray-900">
                         {list.title}

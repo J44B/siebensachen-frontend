@@ -5,7 +5,7 @@ import { DetailedEventCard } from '../components/indexComponents.js';
 import { ListCard } from '../components/indexComponents.js';
 
 function EventPage() {
-    const { id } = useParams();
+    const { eventId } = useParams();
     const [event, setEvent] = useState(null);
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ function EventPage() {
         async function fetchEvent() {
             try {
                 const response = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/events/${id}`,
+                    `${import.meta.env.VITE_API_URL}/events/${eventId}`,
                 );
                 setEvent(response.data);
 
@@ -33,19 +33,19 @@ function EventPage() {
             }
         }
         fetchEvent();
-    }, [id]);
+    }, [eventId]);
 
     // Fetch event lists
     useEffect(() => {
         async function fetchLists() {
             const response = await axios.get(
-                `${import.meta.env.VITE_API_URL}/lists/${id}`,
+                `${import.meta.env.VITE_API_URL}/lists/${eventId}`,
             );
             setLists(response.data || []);
             setLoading(false);
         }
         fetchLists();
-    }, [id]);
+    }, [eventId]);
 
     if (loading) return <p>EventPage says: Loading...</p>;
     if (error) return <p>EventPage says: Error loading event.</p>;
@@ -70,14 +70,14 @@ function EventPage() {
                 >
                     {lists.length > 0 ? (
                         lists.map((list) => (
-                            <ListCard key={list.id} list={list} />
+                            <ListCard key={list.id} list={list} event={event} />
                         ))
                     ) : (
                         <p>No lists found.</p>
                     )}
                     <div>
                         <button
-                            onClick={() => navigate('/list/create-list')}
+                            onClick={() => navigate(`/lists/create/${eventId}`)}
                             className="inline-block rounded bg-white p-2 text-black px-10 py-10 hover:shadow-lg"
                             href="#"
                         >

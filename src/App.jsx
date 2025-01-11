@@ -45,29 +45,29 @@ const router = createBrowserRouter([
                 element: <ProfilePage />,
             },
             {
-                path: '/events/:id',
+                path: '/events/:eventId',
                 element: <EventPage />,
             },
             {
-                path: '/edit-event/:id',
+                path: '/events/:eventId/edit',
                 element: <EditEventPage />,
             },
             {
-                path: '/new-event',
+                path: '/events/create',
                 element: <CreateEventPage />,
             },
             {
                 path: '/administration',
                 element: <AdministrationPage />,
             },
-            { path: '/list/:eventId/:listId', element: <ListPage /> },
-            { path: '/list/create-list', element: <CreateListPage /> },
+            { path: '/lists/:eventId/:listId', element: <ListPage /> },
+            { path: '/lists/create/:eventId', element: <CreateListPage /> },
             {
-                path: '/administration/items',
+                path: '/items',
                 element: <ItemsPage />,
             },
             {
-                path: '/administration/categories',
+                path: '/categories',
                 element: <CategoriesPage />,
             },
         ],

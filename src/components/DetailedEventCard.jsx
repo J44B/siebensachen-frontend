@@ -52,7 +52,7 @@ function DetailedEventCard({ event }) {
                         id="button-area"
                         className="flex flex-row-reverse items-end justify-between"
                     >
-                        <Link to={`/edit-event/${event.id}`}>
+                        <Link to={`/events/${event.id}/edit`}>
                             <button className="block bg-gray-50 px-5 py-3 text-center text-xs font-bold uppercase text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]">
                                 Edit event
                             </button>
