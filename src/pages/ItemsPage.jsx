@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
-import { ListItem } from '../components/indexComponents.js';
+import { Item } from '../components/indexComponents.js';
 
 function ItemsPage() {
     const { id } = useParams();
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -38,13 +38,18 @@ function ItemsPage() {
     return (
         <>
             <div id="heading">
-                <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
-                    Items
+                <h1 className="border-b-2 text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
+                    Global items
                 </h1>
             </div>
-            <div id="item-list" className="space-y-1">
+            {/* Category filters go here */}
+            {/* Add new item component goes here */}
+            <div
+                id="item-list"
+                className="mt-4 space-y-1 border border-solid border-[#173B45] rounded p-2"
+            >
                 {items.length > 0 ? (
-                    items.map((item) => <ListItem key={item.id} item={item} />)
+                    items.map((item) => <Item key={item.id} item={item} />)
                 ) : (
                     <p>No items found.</p>
                 )}

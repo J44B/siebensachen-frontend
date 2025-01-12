@@ -58,7 +58,7 @@ function ListPage() {
     return (
         <>
             <div id="heading">
-                <h1 className="text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
+                <h1 className="border-b-2 text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
                     {list.title}
                 </h1>
             </div>
@@ -71,7 +71,7 @@ function ListPage() {
             >
                 {listItems.length > 0 ? (
                     listItems.map((listItem) => (
-                        <ListItem key={listItem.id} item={listItem} />
+                        <ListItem key={listItem.id} item={listItem.Item} />
                     ))
                 ) : (
                     <p>No items found.</p>

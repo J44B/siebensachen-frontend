@@ -10,6 +10,7 @@ import EventCard from './EventCard.jsx';
 import DetailedEventCard from './DetailedEventCard.jsx';
 import EventList from './EventList.jsx';
 import ListCard from './ListCard.jsx';
+import Item from './Item.jsx';
 import ListItem from './ListItem.jsx';
 import Category from './Category.jsx';
 import SubCategory from './SubCategory.jsx';
@@ -32,4 +33,5 @@ export {
     Category,
     SubCategory,
     Autocomplete,
+    Item,
 };

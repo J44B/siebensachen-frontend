@@ -30,7 +30,7 @@ function AdministrationPage() {
                             />
                         </svg>
                     </span>
-                    <Link to={'/administration/items'}>
+                    <Link to={'/items'}>
                         <div id="title">
                             <h3 className="mt-0.5 text-lg font-medium text-gray-900">
                                 Items
@@ -58,7 +58,7 @@ function AdministrationPage() {
                             />
                         </svg>
                     </span>
-                    <Link to={'/administration/categories'}>
+                    <Link to={'/categories'}>
                         <div id="title">
                             <h3 className="mt-0.5 text-lg font-medium text-gray-900">
                                 Categories
