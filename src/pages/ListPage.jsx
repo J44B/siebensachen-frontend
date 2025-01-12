@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 import axios from 'axios';
-import { ListItem } from '../components/indexComponents.js';
+import { ListItem, Autocomplete } from '../components/indexComponents.js';
 
 function ListPage() {
     const { eventId, listId } = useParams();
     const [list, setList] = useState(null);
-    const [items, setItems] = useState([]);
+    const [listItems, setListItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const navigate = useNavigate();
-
-    console.log('EventId: ', eventId, 'ListID: ', listId);
 
     // fetch list
 
@@ -43,20 +40,20 @@ function ListPage() {
     // fetch items
 
     useEffect(() => {
-        async function fetchItems() {
+        async function fetchListItems() {
             const response = await axios.get(
                 `${import.meta.env.VITE_API_URL}/listitems/${listId}`,
             );
-            setItems(response.data);
+            setListItems(response.data);
             setLoading(false);
         }
-        fetchItems();
+        fetchListItems();
     }, [listId]);
 
     if (loading) return <p>ListPage says: Loading...</p>;
     if (error) return <p>ListPage says: Error loading list.</p>;
     if (!list) return <p>ListPage says: List not found.</p>;
-    if (!items) return <p>ListPage says: Items not found.</p>;
+    if (!listItems) return <p>ListPage says: Items not found.</p>;
 
     return (
         <>
@@ -65,10 +62,17 @@ function ListPage() {
                     {list.title}
                 </h1>
             </div>
-
-            <div id="item-list" className="space-y-1">
-                {items.length > 0 ? (
-                    items.map((item) => <ListItem key={item.id} item={item} />)
+            <div id="autocomplete" className="mt-4">
+                <Autocomplete />
+            </div>
+            <div
+                id="item-list"
+                className="mt-4 space-y-1 border border-solid border-[#173B45] rounded p-2"
+            >
+                {listItems.length > 0 ? (
+                    listItems.map((listItem) => (
+                        <ListItem key={listItem.id} item={listItem} />
+                    ))
                 ) : (
                     <p>No items found.</p>
                 )}

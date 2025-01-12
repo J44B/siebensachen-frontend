@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import backpack from '../assets/icons/backpack.svg';
 import list from '../assets/icons/list.svg';
-import search from '../assets/icons/magnifying-glass.svg';
+// import search from '../assets/icons/magnifying-glass.svg';
 import { useState } from 'react';
 import { UserMenu } from './indexComponents.js';
 

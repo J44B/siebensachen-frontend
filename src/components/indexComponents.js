@@ -13,6 +13,7 @@ import ListCard from './ListCard.jsx';
 import ListItem from './ListItem.jsx';
 import Category from './Category.jsx';
 import SubCategory from './SubCategory.jsx';
+import Autocomplete from './Autocomplete.jsx';
 
 // --- End import section
 
@@ -30,4 +31,5 @@ export {
     ListItem,
     Category,
     SubCategory,
+    Autocomplete,
 };
