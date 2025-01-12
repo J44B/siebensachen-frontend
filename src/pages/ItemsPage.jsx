@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
 import axios from 'axios';
 import { Item } from '../components/indexComponents.js';
 
 function ItemsPage() {
-    const { id } = useParams();
     const [items, setItems] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -29,7 +27,7 @@ function ItemsPage() {
             }
         }
         fetchItems();
-    }, [id]);
+    }, []);
 
     if (loading) return <p>ItemsPage says: Loading...</p>;
     if (error) return <p>ItemsPage says: Error loading item.</p>;

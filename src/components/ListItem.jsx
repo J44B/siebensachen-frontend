@@ -1,4 +1,5 @@
 function ListItem({ item }) {
+    console.log(item);
     if (!item) return <p>ListItem says: Could not fetch item.</p>;
 
     return (

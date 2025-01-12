@@ -8,7 +8,28 @@ function ListPage() {
     const [list, setList] = useState(null);
     const [listItems, setListItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [listError, setlistError] = useState(false);
+    const [itemsError, setItemsError] = useState(false);
+
+    async function handleAddItem(listId, listItems, setListItems, newItem) {
+        try {
+            const addItem = await axios.post(
+                `${import.meta.env.VITE_API_URL}/listitems/${listId}/${
+                    newItem.id
+                }`,
+                { item_id: newItem.id },
+            );
+
+            const addedItem = addItem.data;
+            setListItems((prevItems) => [...prevItems, { Item: addedItem }]);
+        } catch (error) {
+            console.error('Error adding item:', error);
+        }
+    }
+
+    function handleAddItemFromAutocomplete(newItem) {
+        handleAddItem(listId, listItems, setListItems, newItem);
+    }
 
     // fetch list
 
@@ -26,7 +47,7 @@ function ListPage() {
                 setLoading(false);
             } catch (error) {
                 if (error.response && error.response.status === 404) {
-                    setError(true);
+                    setlistError(error);
                 } else {
                     console.error('Error fetching event data:', error);
                 }
@@ -41,17 +62,30 @@ function ListPage() {
 
     useEffect(() => {
         async function fetchListItems() {
-            const response = await axios.get(
-                `${import.meta.env.VITE_API_URL}/listitems/${listId}`,
-            );
-            setListItems(response.data);
-            setLoading(false);
+            try {
+                const response = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/listitems/${listId}`,
+                );
+
+                setListItems(response.data);
+
+                setLoading(false);
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    setItemsError(error);
+                } else {
+                    console.error('Error fetching event list data:', error);
+                }
+            } finally {
+                setLoading(false);
+            }
         }
         fetchListItems();
     }, [listId]);
 
     if (loading) return <p>ListPage says: Loading...</p>;
-    if (error) return <p>ListPage says: Error loading list.</p>;
+    if (listError) return <p>ListPage says: Error loading list.</p>;
+    if (itemsError) return <p>ListPage says: Error loading items.</p>;
     if (!list) return <p>ListPage says: List not found.</p>;
     if (!listItems) return <p>ListPage says: Items not found.</p>;
 
@@ -63,7 +97,10 @@ function ListPage() {
                 </h1>
             </div>
             <div id="autocomplete" className="mt-4">
-                <Autocomplete />
+                <Autocomplete
+                    onAddItem={handleAddItemFromAutocomplete}
+                    listId={listId}
+                />
             </div>
             <div
                 id="item-list"

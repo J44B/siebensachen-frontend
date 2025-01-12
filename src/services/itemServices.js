@@ -11,3 +11,19 @@ export function useDatabaseItems() {
         fetchDatabaseItems();
     }, []);
 }
+
+// add listItem to table ListItems
+
+export async function handleAddItem(listId, listItems, setListItems, newItem) {
+    try {
+        const postItem = await axios.post(
+            `${import.meta.env.VITE_API_URL}/listitems/${listId}/${newItem.id}`,
+            { item_id: newItem.id },
+        );
+
+        const insertedItem = postItem.data;
+        setListItems((prevItems) => [...prevItems, { Item: insertedItem }]);
+    } catch (error) {
+        console.error('Error adding item:', error);
+    }
+}

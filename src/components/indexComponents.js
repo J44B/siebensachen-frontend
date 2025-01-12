@@ -8,7 +8,6 @@ import UserMenu from './UserMenu.jsx';
 import EventForm from './EventForm.jsx';
 import EventCard from './EventCard.jsx';
 import DetailedEventCard from './DetailedEventCard.jsx';
-import EventList from './EventList.jsx';
 import ListCard from './ListCard.jsx';
 import Item from './Item.jsx';
 import ListItem from './ListItem.jsx';
@@ -26,7 +25,6 @@ export {
     UserMenu,
     EventForm,
     EventCard,
-    EventList,
     ListCard,
     DetailedEventCard,
     ListItem,

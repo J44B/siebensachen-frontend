@@ -1,4 +1,41 @@
-function Autocomplete() {
+/*
+
+TODOS
+
+add error handling
+
+*/
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function Autocomplete({ onAddItem, listId }) {
+    const [globalItems, setGlobalItems] = useState([]);
+    const [selectedItem, setSelectedItem] = useState('');
+
+    useEffect(() => {
+        async function fetchGlobalItems() {
+            const response = await axios.get(
+                `${import.meta.env.VITE_API_URL}/items`,
+            );
+            setGlobalItems(response.data);
+        }
+        fetchGlobalItems();
+    }, []);
+
+    function handleSelectedItem(e) {
+        setSelectedItem(e.target.value);
+    }
+
+    function handleAddButtonClick() {
+        const item = globalItems.find((item) => item.title === selectedItem);
+        if (item) {
+            onAddItem(item, listId);
+        } else {
+            console.error('Selected item not found in global items.');
+        }
+    }
+
     return (
         <div>
             <label
@@ -6,19 +43,20 @@ function Autocomplete() {
                 className="block text-sm font-medium text-gray-900"
             >
                 {' '}
-                Type or select...{' '}
             </label>
             <div
-                id="select-button-group"
-                className="flex flex-row items-center mt-4"
+                id="select-with-button-group"
+                className="flex flex-row justify-between items-center mt-4"
             >
                 <div className="relative">
                     <input
                         type="text"
                         list="globalItems"
                         id="items"
-                        className="p-4 w-full rounded-lg border-[#173B45] pe-10 text-gray-700 sm:text-sm [&::-webkit-calendar-picker-indicator]:opacity-0"
-                        placeholder="Please select"
+                        className="p-4 w-full rounded border-[#173B45] pe-10 text-gray-700 sm:text-sm [&::-webkit-calendar-picker-indicator]:opacity-0"
+                        placeholder="Type or select item"
+                        value={selectedItem}
+                        onChange={handleSelectedItem}
                     />
 
                     <span className="absolute inset-y-0 end-0 flex w-8 items-center">
@@ -41,23 +79,18 @@ function Autocomplete() {
 
                 <div>
                     <button
-                        className="rounded border border-current px-8 py-3 text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
-                        type="submit"
-                        // onClick={addItem}
+                        className="border border-current rounded px-4 ml-4 py-4 text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+                        type="button"
+                        onClick={handleAddButtonClick}
                     >
                         <span className="text-sm font-medium"> Add </span>
                     </button>
                 </div>
             </div>
-            {/* replace datalist with items from database */}
             <datalist name="items" id="globalItems">
-                <option value="JM">John Mayer</option>
-                <option value="SRV">Stevie Ray Vaughn</option>
-                <option value="JH">Jimi Hendrix</option>
-                <option value="BBK">B.B King</option>
-                <option value="AK">Albert King</option>
-                <option value="BG">Buddy Guy</option>
-                <option value="EC">Eric Clapton</option>
+                {globalItems.map((item) => (
+                    <option key={item.id} value={item.title} />
+                ))}
             </datalist>
         </div>
     );
