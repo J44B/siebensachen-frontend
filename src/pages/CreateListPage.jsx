@@ -1,5 +1,7 @@
+import { ListForm } from '../components/indexComponents.js';
+
 function CreateListPage() {
-    return <h1 className="font-bold">CreateListPage</h1>;
+    return <ListForm />;
 }
 
 export default CreateListPage;
