@@ -12,6 +12,7 @@ function ListPage() {
     const [itemsError, setItemsError] = useState(false);
 
     async function handleAddItem(listId, listItems, setListItems, newItem) {
+        console.log('New Item: ', newItem);
         try {
             const addItem = await axios.post(
                 `${import.meta.env.VITE_API_URL}/listitems/${listId}/${
@@ -19,9 +20,13 @@ function ListPage() {
                 }`,
                 { item_id: newItem.id },
             );
-
+            console.log('LOG ADDITEM: ', addItem);
             const addedItem = addItem.data;
-            setListItems((prevItems) => [...prevItems, { Item: addedItem }]);
+            console.log('LOG addedITEM: ', addedItem);
+            setListItems((prevItems) => [
+                ...prevItems,
+                { Item: { title: addedItem.recall.Item.title } },
+            ]);
         } catch (error) {
             console.error('Error adding item:', error);
         }
@@ -47,7 +52,7 @@ function ListPage() {
                 setLoading(false);
             } catch (error) {
                 if (error.response && error.response.status === 404) {
-                    setlistError(error);
+                    // setlistError(error);
                 } else {
                     console.error('Error fetching event data:', error);
                 }
@@ -72,7 +77,7 @@ function ListPage() {
                 setLoading(false);
             } catch (error) {
                 if (error.response && error.response.status === 404) {
-                    setItemsError(error);
+                    // setItemsError(error);
                 } else {
                     console.error('Error fetching event list data:', error);
                 }

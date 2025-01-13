@@ -30,7 +30,7 @@ function Autocomplete({ onAddItem, listId }) {
     function handleAddButtonClick() {
         const item = globalItems.find((item) => item.title === selectedItem);
         if (item) {
-            onAddItem(item, listId);
+            onAddItem(item);
         } else {
             console.error('Selected item not found in global items.');
         }
