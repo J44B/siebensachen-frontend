@@ -15,7 +15,7 @@ function Item({ item }) {
                     <span className="inline-flex overflow-hidden rounded-md border  shadow-sm">
                         <button
                             className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                            title="Edit Product"
+                            title="Edit item (currently not available)"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ function Item({ item }) {
                         </button>
                         <button
                             className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                            title="Delete Item"
+                            title="Delete Item (currently not available)"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

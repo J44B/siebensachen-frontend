@@ -23,7 +23,7 @@ function CategoriesPage() {
                 if (error.response && error.response.status === 404) {
                     setError(true);
                 } else {
-                    console.error('Error fetching item data:', error);
+                    console.error('Error fetching category data:', error);
                 }
             } finally {
                 setLoading(false);
@@ -45,7 +45,7 @@ function CategoriesPage() {
                 if (error.response && error.response.status === 404) {
                     setError(true);
                 } else {
-                    console.error('Error fetching item data:', error);
+                    console.error('Error fetching sub-category data:', error);
                 }
             } finally {
                 setLoading(false);
@@ -54,10 +54,12 @@ function CategoriesPage() {
         fetchSubCategories();
     }, [id]);
 
-    if (loading) return <p>ItemsPage says: Loading...</p>;
-    if (error) return <p>ItemsPage says: Error loading item.</p>;
-    if (!categories) return <p>ItemsPage says: Could not fetch items.</p>;
-    if (!subCategories) return <p>ItemsPage says: Could not fetch items.</p>;
+    if (loading) return <p>CategoryPage says: Loading...</p>;
+    if (error) return <p>CategoryPage says: Error loading category.</p>;
+    if (!categories)
+        return <p>CategoryPage says: Could not fetch categories.</p>;
+    if (!subCategories)
+        return <p>CategoryPage says: Could not fetch sub-categories.</p>;
 
     return (
         <>

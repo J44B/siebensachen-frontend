@@ -14,7 +14,7 @@ function Category({ category }) {
                     <span className="inline-flex overflow-hidden rounded-md border  shadow-sm">
                         <button
                             className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                            title="Edit Product"
+                            title="Edit category (currently not possible)"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ function Category({ category }) {
 
                         <button
                             className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                            title="Delete Product"
+                            title="Delete category (currently not possible)"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
