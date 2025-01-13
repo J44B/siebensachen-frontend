@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 import { ListItem, Autocomplete } from '../components/indexComponents.js';
 
 function ListPage() {
+    const navigate = useNavigate();
     const { eventId, listId } = useParams();
+    const [currentEventId, setCurrentEventId] = useState(eventId);
     const [list, setList] = useState(null);
     const [listItems, setListItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -20,9 +22,9 @@ function ListPage() {
                 }`,
                 { item_id: newItem.id },
             );
-            console.log('LOG ADDITEM: ', addItem);
+            console.log('LOG addItem: ', addItem);
             const addedItem = addItem.data;
-            console.log('LOG addedITEM: ', addedItem);
+            console.log('LOG addedItem: ', addedItem);
             setListItems((prevItems) => [
                 ...prevItems,
                 { Item: { title: addedItem.recall.Item.title } },
@@ -119,6 +121,12 @@ function ListPage() {
                     <p>No items found.</p>
                 )}
             </div>
+            <button
+                onClick={() => navigate(`/events/${currentEventId}`)}
+                className="mt-4 block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
+            >
+                Back
+            </button>
         </>
     );
 }
