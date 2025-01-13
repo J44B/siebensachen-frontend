@@ -38,6 +38,19 @@ function ListPage() {
         handleAddItem(listId, listItems, setListItems, newItem);
     }
 
+    async function handleDeleteItem(itemId) {
+        try {
+            await axios.delete(
+                `${import.meta.env.VITE_API_URL}/listitems/${listId}/${itemId}`,
+            );
+            setListItems((prevItems) =>
+                prevItems.filter((item) => item.id !== itemId),
+            );
+        } catch (error) {
+            console.error('Error deleting item:', error);
+        }
+    }
+
     // fetch list
 
     useEffect(() => {
@@ -115,7 +128,11 @@ function ListPage() {
             >
                 {listItems.length > 0 ? (
                     listItems.map((listItem) => (
-                        <ListItem key={listItem.id} item={listItem.Item} />
+                        <ListItem
+                            key={listItem.id}
+                            item={listItem.Item}
+                            onDelete={() => handleDeleteItem(listItem.id)}
+                        />
                     ))
                 ) : (
                     <p>No items found.</p>

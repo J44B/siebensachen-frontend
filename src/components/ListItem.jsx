@@ -1,4 +1,4 @@
-function ListItem({ item }) {
+function ListItem({ item, onDelete }) {
     console.log(item);
     if (!item) return <p>ListItem says: Could not fetch item.</p>;
 
@@ -16,7 +16,7 @@ function ListItem({ item }) {
                     <span className="inline-flex overflow-hidden rounded-md border  shadow-sm">
                         <button
                             className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
-                            title="Delete Item"
+                            title="Delete item (currently not available)"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -25,6 +25,7 @@ function ListItem({ item }) {
                                 strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4"
+                                onClick={onDelete}
                             >
                                 <path
                                     strokeLinecap="round"
