@@ -34,6 +34,7 @@ function Autocomplete({ onAddItem, listId }) {
         } else {
             console.error('Selected item not found in global items.');
         }
+        setSelectedItem('');
     }
 
     return (
