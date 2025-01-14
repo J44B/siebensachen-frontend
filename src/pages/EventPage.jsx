@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 import { DetailedEventCard } from '../components/indexComponents.js';
 import { ListCard } from '../components/indexComponents.js';
+import { deleteList } from '../services/listServices.js';
 
 function EventPage() {
     const { eventId } = useParams();
@@ -51,6 +52,23 @@ function EventPage() {
     if (error) return <p>EventPage says: Error loading event.</p>;
     if (!event) return <p>EventPage says: Event not found.</p>;
 
+    const handleDelete = async (eventId, listId) => {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this list?',
+        );
+        console.log('List ID:', listId);
+        if (!confirmed) return;
+
+        try {
+            await deleteList(eventId, listId);
+            setLists((prevLists) =>
+                prevLists.filter((list) => list.id !== listId),
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     // implement delete list
 
     return (
@@ -70,7 +88,12 @@ function EventPage() {
                 >
                     {lists.length > 0 ? (
                         lists.map((list) => (
-                            <ListCard key={list.id} list={list} event={event} />
+                            <ListCard
+                                key={list.id}
+                                list={list}
+                                event={event}
+                                onDelete={() => handleDelete(event.id, list.id)}
+                            />
                         ))
                     ) : (
                         <p>No lists found.</p>

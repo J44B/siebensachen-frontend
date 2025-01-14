@@ -19,11 +19,11 @@ export async function fetchEventLists(eventId) {
 
 // delete list
 
-export async function deleteList(listId) {
+export async function deleteList(eventId, listId) {
     try {
         const token = Cookies.get('token');
         const response = await axios.delete(
-            `${import.meta.env.VITE_API_URL}/lists/${listId}`,
+            `${import.meta.env.VITE_API_URL}/lists/${eventId}/${listId}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export async function deleteList(listId) {
 
         return response;
     } catch (error) {
-        console.error('Error deleting event:', error);
+        console.error('Error deleting list:', error);
         throw error;
     }
 }
