@@ -15,6 +15,7 @@ import ListItem from './ListItem.jsx';
 import Category from './Category.jsx';
 import SubCategory from './SubCategory.jsx';
 import Autocomplete from './Autocomplete.jsx';
+import Checkbox from './Checkbox.jsx';
 
 // --- End import section
 
@@ -34,4 +35,5 @@ export {
     Autocomplete,
     Item,
     ListForm,
+    Checkbox,
 };

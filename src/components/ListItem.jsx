@@ -1,5 +1,27 @@
-function ListItem({ item, onDelete }) {
-    console.log(item);
+import { Checkbox } from '../components/indexComponents.js';
+import { useState } from 'react';
+import axios from 'axios';
+
+function ListItem({ list, item, onDelete }) {
+    const [isChecked, setIsChecked] = useState(item.isChecked || false);
+
+    console.log('ITEM:', item);
+    const handleCheckboxChange = async (checked) => {
+        setIsChecked(checked);
+        try {
+            await axios.put(
+                `${import.meta.env.VITE_API_URL}/listitems/${list.id}/${
+                    item.id
+                }`,
+                {
+                    isChecked: checked,
+                },
+            );
+        } catch (error) {
+            console.error('Error updating checkbox state:', error);
+        }
+    };
+
     if (!item) return <p>ListItem says: Could not fetch item.</p>;
 
     return (
@@ -12,7 +34,21 @@ function ListItem({ item, onDelete }) {
                     {item.title}
                 </div>
 
-                <div id="button-group">
+                <div
+                    id="button-group"
+                    className="flex flex-row items-center space-x-2"
+                >
+                    <label
+                        htmlFor="Check"
+                        className="flex cursor-pointer items-start gap-4"
+                    >
+                        <Checkbox
+                            isChecked={isChecked}
+                            checkHandler={(e) =>
+                                handleCheckboxChange(e.target.checked)
+                            }
+                        />
+                    </label>
                     <span className="inline-flex overflow-hidden rounded-md border  shadow-sm">
                         <button
                             className="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"

@@ -22,12 +22,14 @@ function ListPage() {
                 }`,
                 { item_id: newItem.id },
             );
-            console.log('LOG addItem: ', addItem);
             const addedItem = addItem.data;
-            console.log('LOG addedItem: ', addedItem);
             setListItems((prevItems) => [
                 ...prevItems,
-                { Item: { title: addedItem.recall.Item.title } },
+                {
+                    id: addedItem.id,
+                    Item: { title: addedItem.Item.title },
+                    isChecked: addedItem.isChecked || false,
+                },
             ]);
         } catch (error) {
             console.error('Error adding item:', error);
@@ -39,6 +41,9 @@ function ListPage() {
     }
 
     async function handleDeleteItem(itemId) {
+        console.log(
+            `Attempting to delete ListItem with listId: ${listId} and itemId: ${itemId}`,
+        );
         try {
             await axios.delete(
                 `${import.meta.env.VITE_API_URL}/listitems/${listId}/${itemId}`,
@@ -87,7 +92,7 @@ function ListPage() {
                     `${import.meta.env.VITE_API_URL}/listitems/${listId}`,
                 );
 
-                setListItems(response.data);
+                setListItems(response.data); // is an array
 
                 setLoading(false);
             } catch (error) {
@@ -130,7 +135,11 @@ function ListPage() {
                     listItems.map((listItem) => (
                         <ListItem
                             key={listItem.id}
-                            item={listItem.Item}
+                            item={{
+                                ...listItem.Item,
+                                isChecked: listItem.isChecked,
+                            }}
+                            list={list}
                             onDelete={() => handleDeleteItem(listItem.id)}
                         />
                     ))
