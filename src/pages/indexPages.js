@@ -12,6 +12,7 @@ import ProfilePage from './ProfilePage.jsx';
 import ListPage from './ListPage.jsx';
 import EditEventPage from './EditEventPage.jsx';
 import CreateListPage from './CreateListPage.jsx';
+import NotFoundPage from './NotFoundPage.jsx';
 
 // --- End import section
 
@@ -28,4 +29,5 @@ export {
     ListPage,
     EditEventPage,
     CreateListPage,
+    NotFoundPage,
 };

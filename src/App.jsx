@@ -13,6 +13,7 @@ import {
     ListPage,
     EditEventPage,
     CreateListPage,
+    NotFoundPage,
 } from './pages/indexPages.js';
 
 /* 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <HomePage />,
+            },
+            {
+                path: '*',
+                element: <NotFoundPage />,
             },
             {
                 path: '/signup',
