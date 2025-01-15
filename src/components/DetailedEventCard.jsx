@@ -17,7 +17,7 @@ function DetailedEventCard({ event }) {
                 />
             </div>
             <div className="flex flex-1 flex-col justify-between max-w-prose">
-                <div className="border-s border-gray-900/10 p-4 sm:border-l-transparent sm:p-6">
+                <div className="p-4">
                     {/* ---------- Title ---------- */}
                     <div>
                         <h3 className="font-bold uppercase text-gray-900">
@@ -47,17 +47,17 @@ function DetailedEventCard({ event }) {
                                 : 'No description available'}
                         </p>
                     </div>
-                    {/* ---------- Buttons ---------- */}
-                    <div
-                        id="button-area"
-                        className="flex flex-row-reverse items-end justify-between"
-                    >
-                        <Link to={`/events/${event.id}/edit`}>
-                            <button className="block bg-gray-50 px-5 py-3 text-center text-xs font-bold uppercase text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]">
-                                Edit event
-                            </button>
-                        </Link>
-                    </div>
+                </div>
+                {/* ---------- Button ---------- */}
+                <div
+                    id="button-area"
+                    className="flex flex-row-reverse items-end justify-between"
+                >
+                    <Link to={`/events/${event.id}/edit`}>
+                        <button className="block bg-gray-50 px-5 py-3 text-center text-xs font-bold uppercase text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]">
+                            Edit event
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

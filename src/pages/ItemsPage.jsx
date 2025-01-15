@@ -65,7 +65,7 @@ function ItemsPage() {
     if (!items) return <p>ItemsPage says: Could not fetch items.</p>;
 
     return (
-        <>
+        <div className="">
             <div id="heading">
                 <h1 className="border-b-2 text-center text-2xl font-bold text-[#3C3D37] sm:text-3xl">
                     Global items
@@ -131,7 +131,7 @@ function ItemsPage() {
                     <p>No items found.</p>
                 )}
             </div>
-        </>
+        </div>
     );
 }
 
