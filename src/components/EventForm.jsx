@@ -287,7 +287,7 @@ function EventForm({ eventData }) {
                             className="flex flex-row-reverse items-end justify-between"
                         >
                             <button
-                                onClick={() => navigate('/')}
+                                // onClick={() => navigate('/')}
                                 type="submit"
                                 className="block rounded-lg bg-gray-50 px-5 py-3 text-base font-medium text-[#697565] hover:bg-[#FF8225] hover:text-slate-100 active:bg-[#FF8225]"
                             >
