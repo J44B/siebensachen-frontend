@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import backpack from '../assets/icons/backpack.svg';
 import list from '../assets/icons/list.svg';
-import search from '../assets/icons/magnifying-glass.svg';
+// import search from '../assets/icons/magnifying-glass.svg';
 import { useState } from 'react';
 import { UserMenu } from './indexComponents.js';
 
@@ -28,19 +28,22 @@ function Header() {
                                 </h1>
                             </Link>
                             <p className="mt-1 text-xs text-gray-600">
-                                Die Packliste für Überforderte
+                                The pack list for the overwhelmed
                             </p>
                         </div>
                     </div>
                 </div>
-                <div id="header-buttons" className="flex flex-row gap-2 m-2">
-                    <button
+                <div
+                    id="header-buttons"
+                    className="flex flex-row gap-2 m-2 mx-4"
+                >
+                    {/* <button
                         id="search"
                         className="inline-block text-gray-500 hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
                         href="#"
                     >
                         <img src={search} alt="search" width={32} height={32} />
-                    </button>
+                    </button> */}
                     <UserMenu MenuOpen={MenuOpen} setMenuOpen={setMenuOpen} />
                     <button
                         id="menu-button"

@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { EventCard } from '../components/indexComponents.js';
+import { deleteEvent } from '../services/eventServices.js';
 
 function HomePage() {
     const [events, setEvents] = useState([]);
@@ -38,19 +39,41 @@ function HomePage() {
         return (
             <div className="h-screen flex justify-center items-center">
                 <p className="text-red-500">
-                    Error loading events. Please try again later.
+                    HomePage says: Error loading events.
                 </p>
             </div>
         );
     }
 
-    // console.log(events);
+    const handleDelete = async (eventId) => {
+        const confirmed = window.confirm(
+            'Are you sure you want to delete this event?',
+        );
+        if (!confirmed) return;
+
+        try {
+            await deleteEvent(eventId);
+            setEvents((prevEvents) =>
+                prevEvents.filter((event) => event.id !== eventId),
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
-        <div className="grid md:grid-cols-2 gap-8">
-            {events?.map((event) => (
-                <EventCard key={event.id} event={event} />
-            ))}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+            {events.length > 0 ? (
+                events.map((event) => (
+                    <EventCard
+                        key={event.id}
+                        event={event}
+                        onDelete={() => handleDelete(event.id)}
+                    />
+                ))
+            ) : (
+                <p>No events found.</p>
+            )}
         </div>
     );
 }

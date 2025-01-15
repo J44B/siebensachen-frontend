@@ -139,7 +139,7 @@ function LoginForm() {
                 </button>
 
                 <p className="text-center text-sm text-gray-200">
-                    Already have an account? <br />
+                    Don't have an account? <br />
                     <Link to="/signup" className="underline" href="#">
                         Register here
                     </Link>

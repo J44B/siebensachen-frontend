@@ -10,7 +10,11 @@ import {
     SignUpPage,
     LoginPage,
     ProfilePage,
-} from './pages/index.js';
+    ListPage,
+    EditEventPage,
+    CreateListPage,
+    NotFoundPage,
+} from './pages/indexPages.js';
 
 /* 
 
@@ -30,6 +34,10 @@ const router = createBrowserRouter([
                 element: <HomePage />,
             },
             {
+                path: '*',
+                element: <NotFoundPage />,
+            },
+            {
                 path: '/signup',
                 element: <SignUpPage />,
             },
@@ -42,23 +50,29 @@ const router = createBrowserRouter([
                 element: <ProfilePage />,
             },
             {
-                path: '/events/:id',
+                path: '/events/:eventId',
                 element: <EventPage />,
             },
             {
-                path: '/new-event',
+                path: '/events/:eventId/edit',
+                element: <EditEventPage />,
+            },
+            {
+                path: '/events/create',
                 element: <CreateEventPage />,
             },
             {
                 path: '/administration',
                 element: <AdministrationPage />,
             },
+            { path: '/lists/:eventId/:listId', element: <ListPage /> },
+            { path: '/lists/create/:eventId', element: <CreateListPage /> },
             {
-                path: '/administration/items',
+                path: '/items',
                 element: <ItemsPage />,
             },
             {
-                path: '/administration/categories',
+                path: '/categories',
                 element: <CategoriesPage />,
             },
         ],

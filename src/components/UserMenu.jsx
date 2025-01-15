@@ -26,7 +26,7 @@ function UserMenu() {
 
     // Update icon based on login status
     useEffect(() => {
-        console.log('isLoggedIn changed:', isLoggedIn);
+        // console.log('isLoggedIn changed:', isLoggedIn);
         setIcon(isLoggedIn ? userCircleCheck : userCircle);
     }, [isLoggedIn]);
 
