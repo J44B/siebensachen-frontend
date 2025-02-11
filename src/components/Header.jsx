@@ -28,7 +28,7 @@ function Header() {
                                 </h1>
                             </Link>
                             <p className="mt-1 text-xs text-gray-600">
-                                The pack list for the overwhelmed
+                                The packing list for the overwhelmed
                             </p>
                         </div>
                     </div>

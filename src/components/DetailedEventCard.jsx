@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { convertDate, calculateDays } from '../../utils/utilityFunctions.js';
+import { convertDate, calculateDays } from '../utils/utilityFunctions.js';
 import camp from '../assets/images/festival-camp.jpg';
 
 function DetailedEventCard({ event }) {
